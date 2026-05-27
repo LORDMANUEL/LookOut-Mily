@@ -1,28 +1,43 @@
-BSD 3-Clause License
+Custom Community-Commercial License (CCCL-2026)
 
-Copyright (c) 2026, LORDMANUEL
+Copyright (c) 2026 LORDMANUEL
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
+Permission is hereby granted to use, copy, modify, and distribute this software under the following conditions:
 
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
+1. PERMITTED USES
 
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
+This software may be used free of charge by:
+- Individual users for personal use
+- Students and educational institutions for learning and academic purposes
+- The original author and affiliated workplace(s)
 
-3. Neither the name of the copyright holder nor the names of its
-   contributors may be used to endorse or promote products derived from
-   this software without specific prior written permission.
+2. COMMERCIAL USE
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+Commercial entities and organizations may use this software ONLY if ALL of the following conditions are met:
+
+- They provide attribution to the original author "LORDMANUEL"
+- They contribute either:
+  a) monetary donation, or
+  b) meaningful improvements back to the project (code, fixes, or features)
+
+Commercial use without contribution or attribution is strictly prohibited.
+
+3. ATTRIBUTION REQUIREMENT
+
+All copies, modifications, or derivatives must clearly display:
+- Original author name: LORDMANUEL
+- Link to original repository (if available)
+
+4. RESTRICTIONS
+
+You may NOT:
+- Remove or hide copyright notices
+- Rebrand the software as your own work
+- Use this software commercially without complying with Section 2
+- Sublicense the software without permission
+
+5. NO WARRANTY
+
+This software is provided "AS IS", without warranty of any kind.
+
+THE AUTHORS ARE NOT LIABLE FOR ANY DAMAGES ARISING FROM ITS USE.
