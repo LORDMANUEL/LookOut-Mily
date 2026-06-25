@@ -1,5 +1,7 @@
 # LookOut-Mily
 
+Eureka estamos en la version 3.5.4
+
 **Extension para Thunderbird** que convierte automaticamente adjuntos TNEF (`winmail.dat`) en correos con adjuntos normales.
 
 ## ¿Qué hace?
