@@ -1,52 +1,58 @@
-# Cómo publicar actualizaciones de LookOut Modern
+# Como publicar una nueva version de LookOut-Mily
 
-## Estructura del repositorio GitHub recomendada
+## Archivos que se actualizan
 
+En este repositorio se publican principalmente:
+
+- `lookout-mily-X.Y.Z.xpi`
+- `updates.json`
+- `README.md`
+
+## Pasos recomendados
+
+1. Actualiza la version del addon en `manifest.json` dentro del codigo fuente local.
+2. Empaqueta el complemento como `.xpi`.
+3. Calcula el hash SHA256 del nuevo archivo.
+4. Sube el nuevo `lookout-mily-X.Y.Z.xpi`.
+5. Actualiza `updates.json` para apuntar a la version nueva.
+6. Ajusta `README.md` para reflejar la version publicada y sus cambios principales.
+7. Haz commit y push al repositorio.
+
+## Ejemplo para 3.5.7
+
+- Archivo: `lookout-mily-3.5.7.xpi`
+- URL publica:
+  `https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.7.xpi`
+- Manifiesto:
+  `https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/updates.json`
+
+## Formato de updates.json
+
+```json
+{
+  "addons": {
+    "lookout-modern@addons.thunderbird.net": {
+      "updates": [
+        {
+          "version": "3.5.7",
+          "update_link": "https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.7.xpi",
+          "update_hash": "sha256:HASH_AQUI",
+          "browser_specific_settings": {
+            "gecko": {
+              "strict_min_version": "115.0"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
 ```
-lookout-modern/           ← repositorio público en GitHub
-├── lookout-modern-3.0.0.xpi   ← el .xpi empaquetado y firmado
-├── updates.json               ← manifiesto de versiones
-└── (código fuente si quieres)
-```
 
-## Pasos para lanzar una nueva versión
+## Nota
 
-1. **Editar `manifest.json`**: incrementa `"version"` (ej. `"3.1.0"`).
+Si el complemento se instala sin firma, Thunderbird puede requerir:
 
-2. **Empaquetar el `.xpi`** (es un ZIP con extensión `.xpi`):
-   ```bash
-   cd lookout-modern-3/
-   zip -r ../lookout-modern-3.1.0.xpi . -x "*.DS_Store" -x "__MACOSX/*"
-   ```
+- `xpinstall.signatures.required = false`
 
-3. **Calcular el SHA256** del nuevo `.xpi`:
-   ```bash
-   sha256sum lookout-modern-3.1.0.xpi
-   ```
-
-4. **Actualizar `updates.json`** — añade una nueva entrada (o reemplaza la existente):
-   ```json
-   {
-     "version": "3.1.0",
-     "update_link": "https://raw.githubusercontent.com/TU_USUARIO/lookout-modern/main/lookout-modern-3.1.0.xpi",
-     "update_hash": "sha256:RESULTADO_DEL_PASO_3",
-     "browser_specific_settings": {
-       "gecko": { "strict_min_version": "115.0" }
-     }
-   }
-   ```
-
-5. **Sube ambos archivos** (`lookout-modern-3.1.0.xpi` y `updates.json`) a GitHub.
-
-6. Thunderbird revisará `updates.json` automáticamente y notificará al usuario.
-
-## Notas sobre firma
-
-- Si instalas el .xpi en modo desarrollador (`about:debugging`) no necesitas firma.
-- Para distribución general sin AMO, necesitas firmar con tu propia clave o usar AMO.
-- Para uso personal/empresa: activar `xpinstall.signatures.required = false` en `about:config` de Thunderbird.
-
-## Cambiar la URL de actualizaciones
-
-En `manifest.json` → `browser_specific_settings.gecko.update_url` apunta a la URL pública de `updates.json`.
-Asegúrate de que sea accesible via HTTPS.
+para permitir instalaciones manuales en entornos controlados.

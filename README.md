@@ -1,50 +1,72 @@
 # LookOut-Mily
 
-Eureka estamos en la version 3.5.4
+**LookOut-Mily** es una extension para Thunderbird que convierte correos con `winmail.dat` / TNEF en mensajes con adjuntos normales.
 
-**Extension para Thunderbird** que convierte automaticamente adjuntos TNEF (`winmail.dat`) en correos con adjuntos normales.
+## Version actual
 
-## ¿Qué hace?
+**3.5.7**
+
+Esta version prioriza una conversion mas estable del correo:
+
+- convierte solo el mensaje que abres
+- evita reconvertir el mismo correo original
+- extrae y normaliza los adjuntos de `winmail.dat`
+- reemplaza el correo original por una copia limpia cuando la conversion completa es posible
+- conserva un modo manual como respaldo desde el popup
+
+## Flujo de trabajo
 
 Al abrir un correo que contiene `winmail.dat`:
 
-1. **Extrae automaticamente** los archivos del TNEF.
-2. **Reconstruye el cuerpo del mensaje** usando el contenido del TNEF y las partes inline originales del correo.
-3. **Crea una copia convertida** con adjuntos normales.
-4. **Abre la copia convertida** y envia el correo original con `winmail.dat` a la papelera.
-5. Si la conversion total falla, mantiene funciones manuales desde el popup.
+1. LookOut-Mily detecta el adjunto TNEF.
+2. Extrae los archivos reales contenidos en `winmail.dat`.
+3. Intenta crear una copia nueva del mensaje con adjuntos normales.
+4. Abre la copia convertida y envia el original a la papelera.
+5. Si la conversion total falla, mantiene disponibles las acciones manuales del complemento.
 
-## Instalación (sin firma)
+## Cambios destacados en 3.5.7
 
-1. En Thunderbird, ve a `about:config` y establece `xpinstall.signatures.required = false`.
-2. Ve a **Herramientas → Complementos → ⚙ → Instalar desde archivo**.
-3. Selecciona el `.xpi`.
+- correccion para no reconvertir el mismo mensaje varias veces
+- conversion disparada solo al abrir el correo actual
+- mejora de estabilidad para conversaciones grandes
+- continuidad del paquete `LookOut-Mily` con marca, icono y enlaces del repositorio actual
 
-## Opciones
+## Instalacion manual
 
-Haz clic en Opciones dentro del popup:
+1. En Thunderbird, abre `about:config`.
+2. Establece `xpinstall.signatures.required = false` si tu entorno permite instalaciones sin firma.
+3. Ve a **Herramientas -> Complementos -> Instalar complemento desde archivo**.
+4. Selecciona [`lookout-mily-3.5.7.xpi`](./lookout-mily-3.5.7.xpi).
 
-| Opción | Descripción |
+## Opciones disponibles
+
+| Opcion | Descripcion |
 |--------|-------------|
-| **Convertir automaticamente** | Procesa el `winmail.dat` al abrir el correo |
-| **Reemplazar el mensaje por una copia convertida** | Importa un correo nuevo con adjuntos normales y manda el original a la papelera |
-| **Guardar en disco automaticamente** | Descarga los archivos extraidos cuando hay fallback manual |
-| **Notificacion al convertir** | Aviso de escritorio al terminar |
-| **Sub-carpeta** | Carpeta dentro de Descargas donde guardar archivos en modo manual |
+| Convertir automaticamente | Procesa el `winmail.dat` al abrir el correo |
+| Reemplazar el mensaje por una copia convertida | Crea un nuevo correo con adjuntos normales y mueve el original a papelera |
+| Guardar en disco automaticamente | Descarga los archivos extraidos cuando aplica el flujo manual |
+| Mostrar notificaciones | Informa cuando la conversion o el guardado terminan |
+| Sub-carpeta de descarga | Guarda archivos en una carpeta especifica dentro de Descargas |
 
 ## Compatibilidad
 
 - Thunderbird **115.0 o superior**
-- Manifest V2 / MailExtensions API
+- MailExtensions / Manifest V2
 
 ## Actualizaciones
 
-Repositorio: [LORDMANUEL/LookOut-Mily](https://github.com/LORDMANUEL/LookOut-Mily)
+Este repositorio publica el manifiesto de actualizaciones en [`updates.json`](./updates.json).
 
-Las actualizaciones se detectan automaticamente desde `updates.json` en este repositorio.
+Repositorio oficial:
+[https://github.com/LORDMANUEL/LookOut-Mily](https://github.com/LORDMANUEL/LookOut-Mily)
 
-Para publicar una nueva versión, ver [`COMO_ACTUALIZAR.md`](COMO_ACTUALIZAR.md).
+## Publicacion de versiones
 
-## Créditos
+La guia de publicacion se encuentra en [`COMO_ACTUALIZAR.md`](./COMO_ACTUALIZAR.md).
 
-Basado en LookOut v1.2.15 por Aron Rubin. Adaptado y extendido como LookOut-Mily por **Luis Manuel Fajardo Rivera**.
+## Creditos
+
+Basado en LookOut v1.2.15 por Aron Rubin.
+
+Adaptacion, continuidad y personalizacion:
+**Luis Manuel Fajardo Rivera**
