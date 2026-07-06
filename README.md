@@ -4,14 +4,15 @@
 
 ## Version actual
 
-**3.5.7**
+**3.5.8**
 
-Esta version prioriza una conversion mas estable del correo:
+Esta version prioriza una conversion estable del adjunto y mas control sobre el reemplazo del correo:
 
 - convierte solo el mensaje que abres
 - evita reconvertir el mismo correo original
 - extrae y normaliza los adjuntos de `winmail.dat`
-- reemplaza el correo original por una copia limpia cuando la conversion completa es posible
+- reutiliza la pestaña actual cuando crea la copia convertida, para evitar aperturas en cascada
+- agrega logs exportables para diagnostico y reportes reales de usuarios
 - conserva un modo manual como respaldo desde el popup
 
 ## Flujo de trabajo
@@ -21,14 +22,16 @@ Al abrir un correo que contiene `winmail.dat`:
 1. LookOut-Mily detecta el adjunto TNEF.
 2. Extrae los archivos reales contenidos en `winmail.dat`.
 3. Intenta crear una copia nueva del mensaje con adjuntos normales.
-4. Abre la copia convertida y envia el original a la papelera.
+4. Selecciona la copia convertida en la misma pestaña cuando es posible y envia el original a la papelera.
 5. Si la conversion total falla, mantiene disponibles las acciones manuales del complemento.
 
-## Cambios destacados en 3.5.7
+## Cambios destacados en 3.5.8
 
 - correccion para no reconvertir el mismo mensaje varias veces
 - conversion disparada solo al abrir el correo actual
-- mejora de estabilidad para conversaciones grandes
+- bloqueo de reprocesos simultaneos por pestaña para evitar ciclos y congelamientos
+- reutilizacion de la pestaña actual en lugar de abrir vistas nuevas cuando la copia ya fue creada
+- sistema de logs exportables desde opciones para analizar incidentes reportados
 - continuidad del paquete `LookOut-Mily` con marca, icono y enlaces del repositorio actual
 
 ## Instalacion manual
@@ -36,7 +39,7 @@ Al abrir un correo que contiene `winmail.dat`:
 1. En Thunderbird, abre `about:config`.
 2. Establece `xpinstall.signatures.required = false` si tu entorno permite instalaciones sin firma.
 3. Ve a **Herramientas -> Complementos -> Instalar complemento desde archivo**.
-4. Selecciona [`lookout-mily-3.5.7.xpi`](./lookout-mily-3.5.7.xpi).
+4. Selecciona [`lookout-mily-3.5.8.xpi`](./lookout-mily-3.5.8.xpi).
 
 ## Opciones disponibles
 
@@ -47,6 +50,7 @@ Al abrir un correo que contiene `winmail.dat`:
 | Guardar en disco automaticamente | Descarga los archivos extraidos cuando aplica el flujo manual |
 | Mostrar notificaciones | Informa cuando la conversion o el guardado terminan |
 | Sub-carpeta de descarga | Guarda archivos en una carpeta especifica dentro de Descargas |
+| Habilitar logs de diagnostico | Registra eventos tecnicos y permite exportarlos a JSON desde Opciones |
 
 ## Compatibilidad
 

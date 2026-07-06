@@ -18,11 +18,11 @@ En este repositorio se publican principalmente:
 6. Ajusta `README.md` para reflejar la version publicada y sus cambios principales.
 7. Haz commit y push al repositorio.
 
-## Ejemplo para 3.5.7
+## Ejemplo para 3.5.8
 
-- Archivo: `lookout-mily-3.5.7.xpi`
+- Archivo: `lookout-mily-3.5.8.xpi`
 - URL publica:
-  `https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.7.xpi`
+  `https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.8.xpi`
 - Manifiesto:
   `https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/updates.json`
 
@@ -34,8 +34,8 @@ En este repositorio se publican principalmente:
     "lookout-modern@addons.thunderbird.net": {
       "updates": [
         {
-          "version": "3.5.7",
-          "update_link": "https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.7.xpi",
+          "version": "3.5.8",
+          "update_link": "https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.8.xpi",
           "update_hash": "sha256:HASH_AQUI",
           "browser_specific_settings": {
             "gecko": {
@@ -56,3 +56,7 @@ Si el complemento se instala sin firma, Thunderbird puede requerir:
 - `xpinstall.signatures.required = false`
 
 para permitir instalaciones manuales en entornos controlados.
+
+## Nota para 3.5.8
+
+Esta publicacion agrega logs exportables desde la pagina de opciones. Antes de marcar una incidencia como corregida en produccion, conviene pedir al usuario el archivo JSON exportado para confirmar si hubo reproceso, reapertura en otra pestaña o fallo en el reemplazo del mensaje.
