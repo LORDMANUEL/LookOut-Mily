@@ -1,6 +1,15 @@
 # LookOut-Mily
 
+[![Website](https://img.shields.io/badge/website-live-0b8f6a?style=for-the-badge)](https://lordmanuel.github.io/LookOut-Mily/)
+[![Release](https://img.shields.io/badge/release-3.5.9-157ad1?style=for-the-badge)](https://github.com/LORDMANUEL/LookOut-Mily/releases)
+
 **LookOut-Mily** es una extension para Thunderbird que convierte correos con `winmail.dat` / TNEF en mensajes con adjuntos normales.
+
+Sitio oficial del proyecto:
+[https://lordmanuel.github.io/LookOut-Mily/](https://lordmanuel.github.io/LookOut-Mily/)
+
+Repositorio oficial:
+[https://github.com/LORDMANUEL/LookOut-Mily](https://github.com/LORDMANUEL/LookOut-Mily)
 
 ## Version actual
 
@@ -79,9 +88,6 @@ Configuracion recomendada en GitHub:
 6. Guarda los cambios
 
 Este repositorio no necesita workflow de GitHub Actions para publicar la landing, porque el sitio ya es estatico y `index.html` vive en `docs/`.
-
-Repositorio oficial:
-[https://github.com/LORDMANUEL/LookOut-Mily](https://github.com/LORDMANUEL/LookOut-Mily)
 
 ## Publicacion de versiones
 
