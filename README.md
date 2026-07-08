@@ -64,18 +64,21 @@ Este repositorio publica el manifiesto de actualizaciones en [`updates.json`](./
 
 ## Sitio web del proyecto
 
-La landing page del proyecto vive en [`docs/`](./docs) y esta preparada para publicarse con GitHub Pages mediante GitHub Actions.
+La landing page del proyecto vive en [`docs/`](./docs) y esta preparada para publicarse con GitHub Pages directamente desde la rama principal.
 
 URL esperada del sitio:
 `https://lordmanuel.github.io/LookOut-Mily/`
 
-Si GitHub Pages aun no esta habilitado en el repositorio:
+Configuracion recomendada en GitHub:
 
 1. Ve a **Settings**
 2. Entra en **Pages**
-3. En **Source**, selecciona **GitHub Actions**
+3. En **Source**, selecciona **Deploy from a branch**
+4. En **Branch**, selecciona **main**
+5. En la carpeta, selecciona **/docs**
+6. Guarda los cambios
 
-El workflow oficial queda en [`.github/workflows/pages.yml`](./.github/workflows/pages.yml).
+Este repositorio no necesita workflow de GitHub Actions para publicar la landing, porque el sitio ya es estatico y `index.html` vive en `docs/`.
 
 Repositorio oficial:
 [https://github.com/LORDMANUEL/LookOut-Mily](https://github.com/LORDMANUEL/LookOut-Mily)
