@@ -62,6 +62,21 @@ Al abrir un correo que contiene `winmail.dat`:
 
 Este repositorio publica el manifiesto de actualizaciones en [`updates.json`](./updates.json).
 
+## Sitio web del proyecto
+
+La landing page del proyecto vive en [`docs/`](./docs) y esta preparada para publicarse con GitHub Pages mediante GitHub Actions.
+
+URL esperada del sitio:
+`https://lordmanuel.github.io/LookOut-Mily/`
+
+Si GitHub Pages aun no esta habilitado en el repositorio:
+
+1. Ve a **Settings**
+2. Entra en **Pages**
+3. En **Source**, selecciona **GitHub Actions**
+
+El workflow oficial queda en [`.github/workflows/pages.yml`](./.github/workflows/pages.yml).
+
 Repositorio oficial:
 [https://github.com/LORDMANUEL/LookOut-Mily](https://github.com/LORDMANUEL/LookOut-Mily)
 
