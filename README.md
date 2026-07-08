@@ -5,6 +5,12 @@
 
 **LookOut-Mily** es una extension para Thunderbird que convierte correos con `winmail.dat` / TNEF en mensajes con adjuntos normales.
 
+Descarga oficial en Thunderbird Add-ons:
+[https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/](https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/)
+
+Respaldo XPI directo:
+[https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.9.xpi](https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.9.xpi)
+
 Sitio oficial del proyecto:
 [https://lordmanuel.github.io/LookOut-Mily/](https://lordmanuel.github.io/LookOut-Mily/)
 
