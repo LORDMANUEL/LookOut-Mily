@@ -4,15 +4,17 @@
 
 ## Version actual
 
-**3.5.8**
+**3.5.9**
 
-Esta version prioriza una conversion estable del adjunto y mas control sobre el reemplazo del correo:
+Esta version mantiene el comportamiento estable de la 3.5.8 y agrega ajustes para publicacion y revision en Mozilla / ATN:
 
 - convierte solo el mensaje que abres
 - evita reconvertir el mismo correo original
 - extrae y normaliza los adjuntos de `winmail.dat`
 - reutiliza la pestaña actual cuando crea la copia convertida, para evitar aperturas en cascada
 - agrega logs exportables para diagnostico y reportes reales de usuarios
+- elimina configuracion de auto-actualizacion no permitida para complementos alojados por Mozilla
+- corrige una asignacion dinamica a `innerHTML` para cumplir mejor con revision de seguridad
 - conserva un modo manual como respaldo desde el popup
 
 ## Flujo de trabajo
@@ -25,13 +27,12 @@ Al abrir un correo que contiene `winmail.dat`:
 4. Selecciona la copia convertida en la misma pestaña cuando es posible y envia el original a la papelera.
 5. Si la conversion total falla, mantiene disponibles las acciones manuales del complemento.
 
-## Cambios destacados en 3.5.8
+## Cambios destacados en 3.5.9
 
-- correccion para no reconvertir el mismo mensaje varias veces
-- conversion disparada solo al abrir el correo actual
-- bloqueo de reprocesos simultaneos por pestaña para evitar ciclos y congelamientos
-- reutilizacion de la pestaña actual en lugar de abrir vistas nuevas cuando la copia ya fue creada
-- sistema de logs exportables desde opciones para analizar incidentes reportados
+- mantiene el flujo funcional estable de la 3.5.8
+- remueve `update_url` del `manifest.json` para compatibilidad con publicacion alojada por Mozilla
+- reemplaza el uso dinamico de `innerHTML` en la vista previa por construccion segura del DOM
+- conserva la conversion individual del correo abierto, el reemplazo controlado y los logs exportables
 - continuidad del paquete `LookOut-Mily` con marca, icono y enlaces del repositorio actual
 
 ## Instalacion manual
@@ -39,7 +40,7 @@ Al abrir un correo que contiene `winmail.dat`:
 1. En Thunderbird, abre `about:config`.
 2. Establece `xpinstall.signatures.required = false` si tu entorno permite instalaciones sin firma.
 3. Ve a **Herramientas -> Complementos -> Instalar complemento desde archivo**.
-4. Selecciona [`lookout-mily-3.5.8.xpi`](./lookout-mily-3.5.8.xpi).
+4. Selecciona [`lookout-mily-3.5.9.xpi`](./lookout-mily-3.5.9.xpi).
 
 ## Opciones disponibles
 
