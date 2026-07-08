@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LookOut-Mily | Conversion winmail.dat para Thunderbird</title>
+  <meta name="description" content="LookOut-Mily convierte winmail.dat y TNEF de Outlook en adjuntos normales dentro de Thunderbird, con conversion del correo abierto y reemplazo controlado.">
+  <link rel="icon" type="image/png" href="./assets/logo-32.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="#top">
+        <img src="./assets/logo-64.png" alt="LookOut-Mily">
+        <span>LookOut-Mily</span>
+      </a>
+      <nav class="site-nav" aria-label="Principal">
+        <a href="#funciona">Como funciona</a>
+        <a href="#estabilidad">Estabilidad</a>
+        <a href="#descarga">Descarga</a>
+        <a href="https://github.com/LORDMANUEL/LookOut-Mily" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Thunderbird 115+ · Release 3.5.9</div>
+          <h1>LookOut-Mily</h1>
+          <p class="hero-text">
+            Convierte correos con <code>winmail.dat</code> y TNEF de Outlook en mensajes utilizables dentro de Thunderbird, con adjuntos normales, reemplazo controlado y diagnostico por logs.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.9.xpi">Descargar 3.5.9</a>
+            <a class="button button-secondary" href="https://github.com/LORDMANUEL/LookOut-Mily" target="_blank" rel="noreferrer">Ver repositorio</a>
+          </div>
+          <ul class="hero-badges" aria-label="Indicadores clave">
+            <li>Convierte solo el correo abierto</li>
+            <li>Evita reprocesos en cascada</li>
+            <li>Logs exportables para soporte</li>
+          </ul>
+        </div>
+
+        <div class="hero-visual" aria-label="Vista conceptual del complemento">
+          <div class="visual-window">
+            <div class="window-bar">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="window-body">
+              <div class="message-list">
+                <div class="list-item active">
+                  <strong>Mensaje detectado</strong>
+                  <small>winmail.dat encontrado</small>
+                </div>
+                <div class="list-item">
+                  <strong>Conversion segura</strong>
+                  <small>Adjuntos reales listos</small>
+                </div>
+                <div class="list-item">
+                  <strong>Logs activos</strong>
+                  <small>Diagnostico exportable</small>
+                </div>
+              </div>
+              <div class="message-panel">
+                <div class="panel-head">
+                  <img src="./assets/logo-64.png" alt="">
+                  <div>
+                    <strong>LookOut-Mily</strong>
+                    <small>Flujo estable de conversion individual</small>
+                  </div>
+                </div>
+                <div class="attachment-strip">
+                  <div class="attachment-chip">winmail.dat</div>
+                  <div class="attachment-chip success">factura.pdf</div>
+                  <div class="attachment-chip success">orden.xlsx</div>
+                  <div class="attachment-chip success">imagen.jpg</div>
+                </div>
+                <div class="status-grid">
+                  <div>
+                    <span class="metric">1</span>
+                    <small>correo abierto</small>
+                  </div>
+                  <div>
+                    <span class="metric">3</span>
+                    <small>adjuntos recuperados</small>
+                  </div>
+                  <div>
+                    <span class="metric">0</span>
+                    <small>conversiones en lote</small>
+                  </div>
+                </div>
+                <div class="flow-note">
+                  Reutiliza la pestaña actual cuando la copia convertida ya fue creada.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band problem-band">
+      <div class="container narrow">
+        <p class="section-kicker">Hecho para el problema real</p>
+        <h2>Cuando Outlook encierra todo en winmail.dat, LookOut-Mily lo deja legible en Thunderbird.</h2>
+        <div class="before-after">
+          <div class="state-box">
+            <span class="state-label">Antes</span>
+            <strong>Un solo adjunto opaco</strong>
+            <p>El correo llega con TNEF y los archivos utiles quedan atrapados en un contenedor dificil de usar.</p>
+          </div>
+          <div class="state-box">
+            <span class="state-label good">Despues</span>
+            <strong>Adjuntos normales y flujo controlado</strong>
+            <p>La extension extrae los archivos reales, evita reconversiones innecesarias y deja soporte de logs cuando hace falta.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="funciona">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-kicker">Como funciona</p>
+          <h2>Un flujo corto, claro y pensado para no pegar la bandeja.</h2>
+        </div>
+        <div class="steps">
+          <article class="step-card">
+            <span class="step-index">01</span>
+            <h3>Detecta solo el mensaje abierto</h3>
+            <p>La conversion se dispara sobre el correo que el usuario esta viendo, no sobre toda la cuenta.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-index">02</span>
+            <h3>Extrae los adjuntos reales</h3>
+            <p>Lee el contenedor TNEF, normaliza archivos y prepara la copia convertida con adjuntos utilizables.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-index">03</span>
+            <h3>Reemplaza y deja trazabilidad</h3>
+            <p>Puede abrir la copia limpia en la misma pestaña y conserva logs exportables para soporte tecnico.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="band stability-band" id="estabilidad">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-kicker">Estabilidad</p>
+          <h2>3.5.9 conserva el comportamiento estable de 3.5.8 y limpia lo necesario para publicacion.</h2>
+        </div>
+        <div class="spec-grid">
+          <div class="spec-row">
+            <span>Base funcional</span>
+            <strong>Se mantiene el flujo estable de 3.5.8</strong>
+          </div>
+          <div class="spec-row">
+            <span>Revision Mozilla</span>
+            <strong>Sin <code>update_url</code> y sin uso dinamico de <code>innerHTML</code></strong>
+          </div>
+          <div class="spec-row">
+            <span>Diagnostico</span>
+            <strong>Logs locales exportables para incidentes reales</strong>
+          </div>
+          <div class="spec-row">
+            <span>Creador</span>
+            <strong>Luis Manuel Fajardo Rivera</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band download-band" id="descarga">
+      <div class="container download-grid">
+        <div>
+          <p class="section-kicker">Descarga</p>
+          <h2>Listo para instalar, revisar o publicar.</h2>
+          <p>
+            El repositorio incluye el paquete actual, manifiesto de actualizacion, README y notas de version alineadas con la release 3.5.9.
+          </p>
+        </div>
+        <div class="download-panel">
+          <div class="download-meta">
+            <span class="meta-label">Version</span>
+            <strong>3.5.9</strong>
+          </div>
+          <div class="download-meta">
+            <span class="meta-label">Compatibilidad</span>
+            <strong>Thunderbird 115.0 o superior</strong>
+          </div>
+          <div class="download-links">
+            <a class="button button-primary" href="https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.9.xpi">Bajar XPI</a>
+            <a class="button button-secondary" href="https://github.com/LORDMANUEL/LookOut-Mily/blob/main/README.md" target="_blank" rel="noreferrer">Leer documentacion</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <div class="footer-brand">
+        <img src="./assets/logo-32.png" alt="">
+        <div>
+          <strong>LookOut-Mily</strong>
+          <small>Conversion TNEF para Thunderbird</small>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/LORDMANUEL/LookOut-Mily" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://github.com/LORDMANUEL/LookOut-Mily/issues" target="_blank" rel="noreferrer">Soporte</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
