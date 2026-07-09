@@ -1,7 +1,7 @@
 # LookOut-Mily
 
 [![Website](https://img.shields.io/badge/website-live-0b8f6a?style=for-the-badge)](https://lordmanuel.github.io/LookOut-Mily/)
-[![Release](https://img.shields.io/badge/release-3.5.9-157ad1?style=for-the-badge)](https://github.com/LORDMANUEL/LookOut-Mily/releases)
+[![Release](https://img.shields.io/badge/release-3.5.10-157ad1?style=for-the-badge)](https://github.com/LORDMANUEL/LookOut-Mily/releases)
 
 **LookOut-Mily** es una extension para Thunderbird que convierte correos con `winmail.dat` / TNEF en mensajes con adjuntos normales.
 
@@ -9,7 +9,7 @@ Descarga oficial en Thunderbird Add-ons:
 [https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/](https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/)
 
 Respaldo XPI directo:
-[https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.9.xpi](https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.9.xpi)
+[https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.10.xpi](https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.10.xpi)
 
 Sitio oficial del proyecto:
 [https://lordmanuel.github.io/LookOut-Mily/](https://lordmanuel.github.io/LookOut-Mily/)
@@ -19,18 +19,19 @@ Repositorio oficial:
 
 ## Version actual
 
-**3.5.9**
+**3.5.10**
 
-Esta version mantiene el comportamiento estable de la 3.5.8 y agrega ajustes para publicacion y revision en Mozilla / ATN:
+Esta version mantiene el comportamiento estable del flujo de conversion y agrega ajustes para publicacion y revision en Mozilla / ATN:
 
 - convierte solo el mensaje que abres
 - evita reconvertir el mismo correo original
 - extrae y normaliza los adjuntos de `winmail.dat`
 - reutiliza la pestaña actual cuando crea la copia convertida, para evitar aperturas en cascada
 - agrega logs exportables para diagnostico y reportes reales de usuarios
-- elimina configuracion de auto-actualizacion no permitida para complementos alojados por Mozilla
-- corrige una asignacion dinamica a `innerHTML` para cumplir mejor con revision de seguridad
-- conserva un modo manual como respaldo desde el popup
+- elimina el flujo de compose no compatible con ATN
+- agrega localizacion en ingles y espanol
+- limpia archivos no usados del paquete XPI
+- ajusta compatibilidad minima a Thunderbird 128
 
 ## Flujo de trabajo
 
@@ -42,20 +43,20 @@ Al abrir un correo que contiene `winmail.dat`:
 4. Selecciona la copia convertida en la misma pestaña cuando es posible y envia el original a la papelera.
 5. Si la conversion total falla, mantiene disponibles las acciones manuales del complemento.
 
-## Cambios destacados en 3.5.9
+## Cambios destacados en 3.5.10
 
-- mantiene el flujo funcional estable de la 3.5.8
-- remueve `update_url` del `manifest.json` para compatibilidad con publicacion alojada por Mozilla
-- reemplaza el uso dinamico de `innerHTML` en la vista previa por construccion segura del DOM
-- conserva la conversion individual del correo abierto, el reemplazo controlado y los logs exportables
-- continuidad del paquete `LookOut-Mily` con marca, icono y enlaces del repositorio actual
+- elimina llamadas a APIs no compatibles con la version objetivo de Thunderbird
+- remueve el permiso `compose` y el flujo de reenvio no soportado
+- agrega `_locales/en` y `_locales/es` para interfaz bilingue
+- limpia iconos y carpetas no usadas del empaquetado final
+- valida correctamente con `thunderbird/webext-linter`
 
 ## Instalacion manual
 
 1. En Thunderbird, abre `about:config`.
 2. Establece `xpinstall.signatures.required = false` si tu entorno permite instalaciones sin firma.
 3. Ve a **Herramientas -> Complementos -> Instalar complemento desde archivo**.
-4. Selecciona [`lookout-mily-3.5.9.xpi`](./lookout-mily-3.5.9.xpi).
+4. Selecciona [`lookout-mily-3.5.10.xpi`](./lookout-mily-3.5.10.xpi).
 
 ## Opciones disponibles
 
@@ -70,7 +71,7 @@ Al abrir un correo que contiene `winmail.dat`:
 
 ## Compatibilidad
 
-- Thunderbird **115.0 o superior**
+- Thunderbird **128.0 o superior**
 - MailExtensions / Manifest V2
 
 ## Actualizaciones
@@ -98,6 +99,11 @@ Este repositorio no necesita workflow de GitHub Actions para publicar la landing
 ## Publicacion de versiones
 
 La guia de publicacion se encuentra en [`COMO_ACTUALIZAR.md`](./COMO_ACTUALIZAR.md).
+
+## Material para ATN
+
+Texto sugerido para la ficha publica en espanol e ingles:
+[`ATN_LISTING_ES_EN.md`](./ATN_LISTING_ES_EN.md)
 
 ## Creditos
 
