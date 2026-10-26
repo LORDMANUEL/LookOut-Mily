@@ -1,20 +1,40 @@
-# LookOut-Mily 3.6.0 — Rama de validación
+# LookOut-Mily 3.6.0
 
-**Estado:** candidato a pruebas, no publicado. La versión productiva en \`main\` permanece intacta.
+**Estado:** Release Candidate (RC) en PR #3. No publicado ni instalado en producción. main y updates.json no se modifican.
 
-## Alcance
-- Motor TNEF, opciones, logs y código del convertidor recuperados sin modificaciones del XPI 3.5.10.
-- Rediseño de pantalla de opciones y popup (light/dark, responsive, accesibilidad).
-- Búsqueda desde \`https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/updates.json\` cada 12 horas.
-- Comparación numérica de versiones, ventana de estado y notificación del SO al detectar una actualización compatible.
-- Botón de actualización dirige a GitHub Releases, **sin auto-instalar** XPI o manipular firmas.
-- Compatibilidad declarada 128+; requiere QA real en 128, 140, 153 ESR y 158.0.1.
+## Funciones
+- Decodificación Outlook TNEF/winmail.dat para adjuntos MIME normales, cuerpo RTF/HTML, nombres Unicode y objetos MAPI admitidos.
+- Arreglos de atributos vacíos, DATA antes de TITLE, atributo final corto, nombre alternativo unknown.dat y validación del encuadre TNEF completo.
+- Mejor rendimiento: fragmentos acumulados y unidos una sola vez por archivo, evitando concatenaciones cuadráticas.
+- Sin resultados parciales de atributos corruptos, checksum inválido o truncamiento.
+- Si un correo está firmado/cifrado con S/MIME o OpenPGP, el complemento no lo reescribe ni borra. Un mensaje cifrado sin firma necesita igualmente la clave privada autorizada.
+- La copia convertida conserva el original; crear copias está desactivado por defecto.
+- Popup y opciones rediseñados, tema claro/oscuro, responsive, accesibilidad.
+- Actualizaciones GitHub cada 12 horas, consulta manual, avisos sin duplicación, enlaces a Releases; nunca instala XPI silenciosamente.
 
-## Importante
-No actualizar el \`updates.json\` público hasta haber firmado, verificado el SHA256, publicado y probado el XPI final.
+## Compatibilidad
+Manifest V2, Thunderbird **128 o posterior**. La invocación messages.getFull distingue 128 (decrypt) de 140+ (decodeContent/decodeHeaders). Se probaron mediante mocks 128 ESR, 140 ESR, 153 ESR y 158. Thunderbird 115 NO es objetivo de 3.6.0. La instalación real en Thunderbird no se ha probado aún.
 
-## Construcción
-El paquete \`lookout-mily-3.6.0.xpi\` se arma copiando intactos los archivos del XPI base y sobrescribiendo las rutas de interfaz/manifiesto; código de extracción TNEF no cambia.
+## Arquitectura
+- v3.6/scripts/build_xpi.py: genera XPI del código versionado sobre la base 3.5.10.
+- v3.6/scripts/safety_overrides.py: parches precisos y auditables al decodificador, opciones y flujo de mensajes.
+- v3.6/ui/, popup/, options/, updates/, manifest.json: fuentes de la interfaz y actualización.
+- v3.6/tests/: TNEF sintético y corpus público real, S/MIME, preservación de mensaje, compatibilidad y notificaciones.
+- .github/workflows/lookout-mily-v36.yml: compila, compara fuentes y XPI, ejecuta pruebas, linter oficial Thunderbird y publica artefacto unsigned-test.
 
-## Validación
-Inspeccionar el manifest, los archivos ZIP y las cadenas UI; después hacer pruebas sobre perfiles Thunderbird aislados. Importar correo de prueba \`winmail.dat\`, validar extracción, descarga, reemplazo opcional, logs y actualización 3.5.9 -> 3.6.0.
+## Reconstruir
+En un clon del proyecto, ejecutar:
+    python3 v3.6/scripts/build_xpi.py
+    python3 v3.6/tests/validate_xpi.py
+    python3 v3.6/scripts/build_xpi.py --verify
+
+El XPI correcto se obtiene como artefacto del workflow. La rama no contiene un XPI obsoleto.
+
+## Pasos de salida
+1. QA de migración 3.5.9 -> 3.6.0 en perfil Thunderbird aislado, con correos .eml de prueba.
+2. Obtener firma y revisión ATN, calcular SHA256 del XPI firmado.
+3. Publicar la versión firmada en GitHub Releases y validar descarga.
+4. Modificar updates.json de main solo entonces, con la versión, HTTPS, ID invariable e integridad del paquete.
+5. Verificar la actualización real sin pérdida de datos ni preferencias.
+
+Importante: los avisos de GitHub no sustituyen el mecanismo nativo de instalación y firma de Thunderbird. Los complementos listados en ATN no deben forzar update_url autohospedada.
