@@ -3,7 +3,7 @@ import fs from "node:fs";
 import { chromium } from "playwright";
 
 const base = "http://127.0.0.1:8765/";
-const release = "https://github.com/LORDMANUEL/LookOut-Mily/releases/download/v3.6.0-rc.2/lookout-mily-3.6.0.xpi";
+const release = "https://github.com/LORDMANUEL/LookOut-Mily/releases/download/v3.6.0/lookout-mily-3.6.0.xpi";
 fs.mkdirSync("site-review", { recursive: true });
 const browser = await chromium.launch({ headless: true });
 let problems = [];
@@ -17,7 +17,7 @@ for (const width of [1440, 1024, 768, 390, 360]) {
   assert.equal(await page.locator("h1").count(),1,"single h1 " + width);
   assert.match(await page.title(),/3\.6\.0/);
   assert.ok((await page.locator("body").innerText()).includes("3.6.0"),"3.6 visible " + width);
-  assert.equal(await page.locator('a[href="'+ release +'"]').count(),2,"RC2 download links");
+  assert.equal(await page.locator('a[href="'+ release +'"]').count(),2,"3.6.0 download links");
   const scroll = await page.evaluate(() => ({ width: document.documentElement.scrollWidth, viewport: innerWidth }));
   if (scroll.width > scroll.viewport + 1) problems.push("Horizontal overflow " + width + ": " + JSON.stringify(scroll));
   const broken = await page.locator('a[href^="#"]').evaluateAll(els => els.filter(a => !document.getElementById(a.getAttribute("href").slice(1))).map(a=>a.getAttribute("href")));
@@ -36,4 +36,4 @@ for (const width of [1440, 1024, 768, 390, 360]) {
 }
 await browser.close();
 assert.deepEqual(problems,[],"Website browser issues: " + problems.join("; "));
-console.log("PASS LookOut-Mily website 3.6 RC2 cross-device smoke tests");
+console.log("PASS LookOut-Mily website 3.6 public cross-device smoke tests");
