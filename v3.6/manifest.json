@@ -1,0 +1,49 @@
+{
+  "manifest_version": 2,
+  "name": "__MSG_extensionName__",
+  "version": "3.6.0",
+  "description": "__MSG_extensionDescription__",
+  "author": "Luis Manuel Fajardo Rivera",
+  "default_locale": "en",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "lookout-modern@addons.thunderbird.net",
+      "strict_min_version": "128.0"
+    }
+  },
+  "background": {
+    "scripts": [
+      "mapi_props.js",
+      "tnef_decoder.js",
+      "background.js",
+      "updates/background.js"
+    ]
+  },
+  "message_display_action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "__MSG_actionTitle__",
+    "default_icon": {
+      "32": "icons/milydat.svg",
+      "64": "icons/milydat.svg"
+    }
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": false
+  },
+  "permissions": [
+    "accountsRead",
+    "messagesDelete",
+    "messagesImport",
+    "messagesRead",
+    "downloads",
+    "storage",
+    "notifications",
+    "alarms",
+    "https://raw.githubusercontent.com/*"
+  ],
+  "icons": {
+    "32": "icons/milydat.svg",
+    "64": "icons/milydat.svg"
+  }
+}

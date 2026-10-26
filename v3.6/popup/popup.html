@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LookOut-Mily 3.6</title><link rel="stylesheet" href="../ui/theme.css"></head><body class="lm-ui lm-popup"><main class="lm-shell">
+<header class="lm-header"><img class="lm-logo" src="../icons/milydat.svg" alt=""><div><div class="lm-eyebrow">Convertidor de correo</div><h1 class="lm-heading">LookOut-Mily</h1><div class="lm-subtitle">Tus adjuntos, disponibles</div></div><span class="lm-version">3.6.0</span></header>
+<section class="lm-update" id="update-card" data-state="idle" aria-live="polite" hidden><span class="lm-update-icon">↑</span><div class="lm-update-main"><strong id="update-title">Nueva versión</strong><p id="update-status"></p><div class="lm-actions"><button id="btn-check-update" class="lm-button lm-button--soft" type="button">Comprobar</button><button id="btn-open-release" class="lm-button lm-button--primary" type="button" hidden>Ver actualización</button></div></div></section>
+<div id="status" class="lm-status loading" role="status" aria-live="polite">Analizando adjuntos del mensaje…</div>
+<section id="extracted-section" class="lm-file-section" hidden><h2 class="lm-section-label">Archivos recuperados de winmail.dat</h2><div id="toolbar" class="lm-toolbar"><button id="btn-save-all" class="lm-button lm-button--primary btn-all" type="button">Guardar todos</button></div><ul id="extracted-list" class="lm-filelist"></ul></section>
+<div id="divider" class="lm-divider" hidden></div>
+<section id="original-section" class="lm-file-section" hidden><h2 class="lm-section-label">Adjuntos originales</h2><ul id="original-list" class="lm-filelist"></ul></section>
+<footer class="lm-foot"><a id="opts-link" href="#" aria-label="Abrir configuración de LookOut-Mily">⚙ Configuración</a> · Luis Manuel Fajardo Rivera · <a id="repo-link" href="https://github.com/LORDMANUEL/LookOut-Mily" target="_blank" rel="noopener noreferrer">Proyecto GitHub</a></footer>
+</main><script src="../ui/updates.js"></script><script src="popup.js"></script></body></html>

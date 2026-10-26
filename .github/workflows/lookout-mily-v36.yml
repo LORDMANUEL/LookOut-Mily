@@ -1,0 +1,139 @@
+name: LookOut-Mily 3.6 Validation
+on:
+  push:
+    branches:
+      - feature/lookout-mily-v3.6
+  pull_request:
+    paths:
+      - 'v3.6/**'
+      - 'lookout-mily-3.6.0.xpi'
+      - '.github/workflows/lookout-mily-v36.yml'
+      - 'README.md'
+      - 'CHANGELOG.md'
+      - 'COMO_ACTUALIZAR.md'
+      - 'ATN_LISTING_ES_EN.md'
+      - 'docs/**'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify release documentation and version channels
+        run: python3 v3.6/tests/test_release_docs.py
+      - name: Build XPI from baseline with safe decoder fixes
+        run: python3 v3.6/scripts/build_xpi.py
+      - name: Verify byte-identical deterministic builds
+        run: |
+          first="$(sha256sum lookout-mily-3.6.0.xpi | cut -d' ' -f1)"
+          python3 v3.6/scripts/build_xpi.py
+          second="$(sha256sum lookout-mily-3.6.0.xpi | cut -d' ' -f1)"
+          test "$first" = "$second"
+          echo "PASS identical XPI builds: $second"
+      - name: Validate packaged XPI and guarded converter
+        run: python3 v3.6/tests/validate_xpi.py
+      - name: Verify XPI matches versioned sources
+        run: python3 v3.6/scripts/build_xpi.py --verify
+      - name: Validate JavaScript syntax
+        run: |
+          python3 - <<'PY'
+          from zipfile import ZipFile
+          from pathlib import Path
+          with ZipFile("lookout-mily-3.6.0.xpi") as z:
+              for f in z.namelist():
+                  if f.endswith(".js"):
+                      dest=Path("/tmp/lookout-check")/f
+                      dest.parent.mkdir(parents=True,exist_ok=True)
+                      dest.write_bytes(z.read(f))
+          PY
+          find /tmp/lookout-check -name '*.js' -print0 | xargs -0 -n1 node --check
+      - name: Decode synthetic Outlook TNEF fixtures
+        run: node v3.6/tests/test_tnef_fixtures.js
+      - name: Check Thunderbird versioned MailExtensions APIs
+        run: node v3.6/tests/test_thunderbird_compat.js
+      - name: Test protected MIME and original preservation
+        run: node v3.6/tests/test_safe_replace.js
+      - name: Test update availability and notifications
+        run: node v3.6/tests/test_updates.js
+      - name: Test real S/MIME signed and encrypted fixtures
+        run: python3 v3.6/tests/test_smime.py
+      - name: Download public TNEF sample corpus
+        run: |
+          mkdir -p v3.6/tests/fixtures
+          for name in one-file.tnef two-files.tnef data-before-name.tnef long-filename.tnef umlaut.tnef unicode-mapi-attr-name.tnef minimal_attachment.tnef MAPI_ATTACH_DATA_OBJ.tnef MAPI_OBJECT.tnef missing-filenames.tnef multi-value-attribute.tnef unicode-mapi-attr.tnef; do
+            curl --fail --location --silent --show-error --retry 3 --max-time 30 \
+              "https://raw.githubusercontent.com/koodaamo/tnefparse/8b79230a6d81d37d2e623751dfbbdc1225844207/tests/examples/$name" \
+              --output "v3.6/tests/fixtures/$name"
+          done
+      - name: Decode real TNEF samples against known attachments
+        run: node v3.6/tests/test_real_tnef.js
+      - name: Thunderbird extension compatibility linter (required)
+        run: |
+          git clone --depth=1 https://github.com/thunderbird/webext-linter.git /tmp/thunderbird-linter
+          cd /tmp/thunderbird-linter
+          npm ci --no-audit --no-fund
+          set +e
+          node verify.js "$GITHUB_WORKSPACE/lookout-mily-3.6.0.xpi" --report-format json > "$GITHUB_WORKSPACE/v3.6-lint-report.json"
+          lint_rc=$?
+          set -e
+          cat "$GITHUB_WORKSPACE/v3.6-lint-report.json"
+          exit "$lint_rc"
+      - name: Retain Thunderbird lint evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lookout-mily-3.6.0-lint-report
+          path: v3.6-lint-report.json
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Publish test-only XPI artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lookout-mily-3.6.0-unsigned-test
+          path: lookout-mily-3.6.0.xpi
+          retention-days: 14
+
+  publish_rc:
+    name: Publish public unsigned release candidate
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/lookout-mily-v3.6' && startsWith(github.event.head_commit.message, 'release(rc):') }}
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: lookout-mily-3.6.0-unsigned-test
+      - name: Validate unsigned RC artifact
+        run: |
+          unzip -t lookout-mily-3.6.0.xpi
+          sha256sum lookout-mily-3.6.0.xpi
+      - name: Publish prerelease only (not stable)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat > RELEASE_NOTES.md <<'EOF'
+          # LookOut-Mily 3.6.0 Release Candidate 2
+
+          ⚠️ **PRUEBAS — XPI SIN FIRMA ATN. NO INSTALAR EN PERFILES DE PRODUCCIÓN.**
+
+          Actualización del convertidor TNEF / winmail.dat para Thunderbird con nueva interfaz, aviso de versiones por GitHub, conversión segura que conserva el mensaje original y mejoras para TNEF con adjuntos múltiples, Unicode y atributos vacíos.
+
+          Verificación automática: 12/12 corpus TNEF reales, pruebas S/MIME, controles de preservación, compatibilidad de APIs simulada y linter oficial Thunderbird con 0 hallazgos.
+
+          Este XPI requiere revisión y firma ATN para su instalación normal y no habilita actualización automática en producción.
+
+          Fuente: https://github.com/LORDMANUEL/LookOut-Mily/pull/3
+          QA: https://github.com/LORDMANUEL/LookOut-Mily/blob/feature/lookout-mily-v3.6/v3.6/QA_REPORT_2026-10-26.md
+          EOF
+          gh release create v3.6.0-rc.2 lookout-mily-3.6.0.xpi \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --prerelease \
+            --title "LookOut-Mily 3.6.0 RC2 (pruebas sin firma)" \
+            --notes-file RELEASE_NOTES.md
