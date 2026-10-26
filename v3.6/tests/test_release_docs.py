@@ -54,7 +54,7 @@ for name in ("README.md", "COMO_ACTUALIZAR.md", "ATN_LISTING_ES_EN.md", "CHANGEL
 
 assert "12/12" in files["README.md"]
 assert "12/12" in files["v3.6/QA_REPORT_2026-10-26.md"]
-assert "PR #3" in files["README.md"]
+assert "GitHub Releases" in files["README.md"]
 print("PASS version consistency: 3.6.0 candidate or stable publication")
 print("PASS eight documentation pages and project-level changelog")
 print("PASS signing notices, non-destructive conversion and ATN links")
