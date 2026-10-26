@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LookOut-Mily | Conversion winmail.dat para Thunderbird</title>
-  <meta name="description" content="LookOut-Mily convierte winmail.dat y TNEF de Outlook en adjuntos normales dentro de Thunderbird, con conversion del correo abierto y reemplazo controlado.">
+  <title>LookOut-Mily 3.6 RC | Conversión Outlook TNEF para Thunderbird</title>
+  <meta name="description" content="LookOut-Mily 3.6 RC: nueva interfaz y conversión Outlook winmail.dat / TNEF con protección del correo original, verificación de integridad y avisos desde GitHub. Disponible como candidato en desarrollo.">
   <link rel="icon" type="image/png" href="./assets/logo-32.png">
   <link rel="stylesheet" href="./styles.css">
 </head>
@@ -17,7 +17,7 @@
       </a>
       <nav class="site-nav" aria-label="Principal">
         <a href="#funciona">Como funciona</a>
-        <a href="#estabilidad">Estabilidad</a>
+        <a href="#estabilidad">Versión 3.6</a>
         <a href="#descarga">Descarga</a>
         <a href="https://github.com/LORDMANUEL/LookOut-Mily" target="_blank" rel="noreferrer">GitHub</a>
       </nav>
@@ -28,19 +28,19 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <div class="eyebrow">Thunderbird 128+ · Release 3.5.10</div>
+          <div class="eyebrow">Thunderbird 128+ · 3.6.0 RC en pruebas · Paquete en main: 3.5.10</div>
           <h1>LookOut-Mily</h1>
           <p class="hero-text">
-            Convierte correos con <code>winmail.dat</code> y TNEF de Outlook en mensajes utilizables dentro de Thunderbird, con adjuntos normales, reemplazo controlado y diagnostico por logs.
+            LookOut-Mily 3.6 recupera los adjuntos de <code>winmail.dat</code> y TNEF de Outlook, ofrece una interfaz renovada y permite generar copias MIME sin eliminar el correo original. Esta version todavia es candidata de pruebas (RC).
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/" target="_blank" rel="noreferrer">Descargar en Thunderbird</a>
-            <a class="button button-secondary" href="https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.10.xpi" target="_blank" rel="noreferrer">Bajar XPI</a>
+            <a class="button button-primary" href="https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/" target="_blank" rel="noreferrer">Versión publicada en ATN</a>
+            <a class="button button-secondary" href="https://github.com/LORDMANUEL/LookOut-Mily/releases/tag/v3.6.0-rc.2" target="_blank" rel="noreferrer">Ver 3.6 RC2 (pruebas)</a>
           </div>
           <ul class="hero-badges" aria-label="Indicadores clave">
-            <li>Convierte solo el correo abierto</li>
-            <li>Evita reprocesos en cascada</li>
-            <li>Logs exportables para soporte</li>
+            <li>Extrae solo del correo abierto</li>
+            <li>Conserva el correo original en 3.6</li>
+            <li>12/12 casos TNEF de prueba aprobados</li>
           </ul>
         </div>
 
@@ -69,7 +69,7 @@
                   <img src="./assets/logo-64.png" alt="">
                   <div>
                     <strong>LookOut-Mily</strong>
-                    <small>Flujo estable de conversion individual</small>
+                    <small>3.6 RC · conversion individual segura</small>
                   </div>
                 </div>
                 <div class="attachment-strip">
@@ -140,8 +140,8 @@
           </article>
           <article class="step-card">
             <span class="step-index">03</span>
-            <h3>Reemplaza y deja trazabilidad</h3>
-            <p>Puede abrir la copia limpia en la misma pestaña y conserva logs exportables para soporte tecnico.</p>
+            <h3>Crea copias y deja trazabilidad</h3>
+            <p>De forma opcional crea una copia MIME conservando el mensaje original; tambien ofrece logs exportables para soporte tecnico.</p>
           </article>
         </div>
       </div>
@@ -151,20 +151,20 @@
       <div class="container">
         <div class="section-head">
           <p class="section-kicker">Estabilidad</p>
-          <h2>3.5.10 deja el complemento mejor alineado con ATN y mantiene el flujo estable de conversion individual.</h2>
+          <h2>La version 3.6 moderniza la experiencia y supera una batería ampliada de compatibilidad TNEF.</h2>
         </div>
         <div class="spec-grid">
           <div class="spec-row">
-            <span>Base funcional</span>
-            <strong>Se mantiene el flujo de conversion por correo abierto</strong>
+            <span>Motor TNEF 3.6 RC</span>
+            <strong>12 de 12 muestras públicas reales de TNEF correctas</strong>
           </div>
           <div class="spec-row">
-            <span>Revision Mozilla</span>
-            <strong>Sin APIs incompatibles, sin permiso <code>compose</code> y con paquete limpio</strong>
+            <span>Validacion tecnica</span>
+            <strong>Linter oficial Thunderbird: 0 errores y 0 advertencias</strong>
           </div>
           <div class="spec-row">
-            <span>Idiomas</span>
-            <strong>Localizacion en espanol e ingles</strong>
+            <span>Seguridad del correo</span>
+            <strong>La copia convertida conserva el original; mensajes cifrados y firmados no se reescriben</strong>
           </div>
           <div class="spec-row">
             <span>Creador</span>
@@ -178,28 +178,28 @@
       <div class="container download-grid">
         <div>
           <p class="section-kicker">Descarga</p>
-          <h2>Listo para instalar, revisar o publicar.</h2>
+          <h2>Una versión disponible y una nueva candidata en pruebas.</h2>
           <p>
-            Descargalo desde Thunderbird Add-ons como opcion principal o usa la XPI directa como respaldo. El repositorio tambien incluye README, manifiesto de actualizacion y notas alineadas con la release 3.5.10.
+            Para instalar una versión publicada, consulta Thunderbird Add-ons. LookOut-Mily 3.6.0 RC es el desarrollo actual; sus pruebas automáticas están aprobadas, pero requiere firma, migración y pruebas reales del cliente antes de publicarse como estable.
           </p>
         </div>
         <div class="download-panel">
           <div class="download-meta">
-            <span class="meta-label">Version</span>
-            <strong>3.5.10</strong>
+            <span class="meta-label">Versión del desarrollo actual</span>
+            <strong>3.6.0 RC (no publicada)</strong>
           </div>
           <div class="download-meta">
             <span class="meta-label">Compatibilidad</span>
             <strong>Thunderbird 128.0 o superior</strong>
           </div>
           <div class="download-meta">
-            <span class="meta-label">Canal oficial</span>
-            <strong>Thunderbird Add-ons</strong>
+            <span class="meta-label">Paquete aún en main</span>
+            <strong>3.5.10 (verificar versión en ATN)</strong>
           </div>
           <div class="download-links">
             <a class="button button-primary" href="https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/" target="_blank" rel="noreferrer">Abrir en Thunderbird Add-ons</a>
-            <a class="button button-secondary" href="https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.10.xpi" target="_blank" rel="noreferrer">Descargar XPI</a>
-            <a class="button button-secondary" href="https://github.com/LORDMANUEL/LookOut-Mily/blob/main/README.md" target="_blank" rel="noreferrer">Leer documentacion</a>
+            <a class="button button-secondary" href="https://github.com/LORDMANUEL/LookOut-Mily/pull/3" target="_blank" rel="noreferrer">Ver nueva 3.6 RC</a>
+            <a class="button button-secondary" href="https://github.com/LORDMANUEL/LookOut-Mily/blob/feature/lookout-mily-v3.6/README.md" target="_blank" rel="noreferrer">Documentacion 3.6</a>
           </div>
         </div>
       </div>

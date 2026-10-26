@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LookOut-Mily 3.6 · Configuración</title><link rel="stylesheet" href="../ui/theme.css"></head>
+<body class="lm-ui"><main class="lm-shell">
+<header class="lm-header"><img class="lm-logo" src="../icons/milydat.svg" alt=""><div><div class="lm-eyebrow">Centro de configuración</div><h1 class="lm-heading">LookOut-Mily</h1><div class="lm-subtitle">Conversión inteligente de winmail.dat · Outlook a Thunderbird</div></div><span class="lm-version">v3.6.0</span></header>
+<section class="lm-update" id="update-card" data-state="idle" aria-live="polite"><span class="lm-update-icon">↻</span><div class="lm-update-main"><strong id="update-title">Actualizaciones de GitHub</strong><p id="update-status">Consultando versiones…</p><div class="lm-actions"><button id="btn-check-update" class="lm-button lm-button--soft" type="button">Buscar actualizaciones</button><button id="btn-open-release" class="lm-button lm-button--primary" type="button" hidden>Ver nueva versión</button></div></div></section>
+<div class="lm-content">
+<section class="lm-panel"><h2>Conversión</h2><p class="lm-desc">Configura cómo procesar archivos adjuntos TNEF.</p>
+<div class="lm-setting"><input type="checkbox" id="autoConvert" checked><label for="autoConvert"><strong>Convertir al abrir el correo</strong><small>Procesa únicamente el mensaje abierto, sin recorrer todas las bandejas.</small></label></div>
+<div class="lm-setting"><input type="checkbox" id="replaceOriginal"><label for="replaceOriginal"><strong>Crear una copia convertida (conservar original)</strong><small>Crea una copia MIME con adjuntos extraídos, sin borrar el correo original. Los correos firmados o cifrados no se reescriben.</small></label></div>
+<div class="lm-setting"><input type="checkbox" id="autoSave"><label for="autoSave"><strong>Guardar adjuntos automáticamente</strong><small>Descarga los archivos extraídos a tu equipo.</small></label></div></section>
+<section class="lm-panel"><h2>Experiencia y descargas</h2><p class="lm-desc">Notificaciones discretas y carpeta de destino.</p>
+<div class="lm-setting"><input type="checkbox" id="showNotif" checked><label for="showNotif"><strong>Notificaciones de conversión</strong><small>Recibir avisos cuando se extraigan o guarden archivos.</small></label></div>
+<div style="margin-top:15px"><label class="lm-formlabel" for="saveSubfolder">Subcarpeta de descargas</label><input id="saveSubfolder" class="lm-input" type="text" placeholder="Ej. LookOut-Mily"><p class="lm-help">Dentro de Descargas; en blanco usa la ubicación predeterminada.</p></div></section>
+<section class="lm-panel lm-panel--wide"><h2>Diagnóstico y soporte</h2><div class="lm-setting"><input type="checkbox" id="enableLogs" checked><label for="enableLogs"><strong>Guardar registros locales</strong><small>Ayuda a identificar fallos de conversión. Los registros no se envían a GitHub.</small></label></div>
+<div class="lm-actions"><button class="lm-button lm-button--soft" id="btn-export-logs" type="button">Exportar logs</button><button class="lm-button lm-button--soft" id="btn-clear-logs" type="button">Limpiar logs</button></div><p id="logs-status" class="lm-help" aria-live="polite">Consultando diagnóstico…</p></section>
+</div>
+<div class="lm-actions"><button class="lm-button lm-button--primary" id="btn-save" type="button">Guardar configuración</button><span id="saved-msg" class="lm-feedback" role="status" aria-live="polite"></span></div>
+<footer class="lm-foot">LookOut-Mily v3.6.0 · Desarrollado por Luis Manuel Fajardo Rivera · <a href="https://github.com/LORDMANUEL/LookOut-Mily" target="_blank" rel="noopener noreferrer">GitHub</a></footer>
+</main><script src="../ui/updates.js"></script><script src="options.js"></script></body></html>
