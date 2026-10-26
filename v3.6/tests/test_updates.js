@@ -40,7 +40,7 @@ function harness({current="3.6.0",tb="158.0.1",body=feed("3.6.1"),fail=false}={}
  s=harness({body:feed("3.6.10"),current:"3.6.9"});r=await s.send("lookoutCheckUpdates");
  assert.equal(r.available,true,"Ordenamiento semántico 3.6.10 > 3.6.9");
 
- s=harness({body:feed("3.6.1","159.0"),tb:"153.5.1"});r=await s.send("lookoutCheckUpdates");
+ s=harness({body:feed("3.6.1","159.0"),tb:"153.5.1esr"});r=await s.send("lookoutCheckUpdates");
  assert.equal(r.available,false,"No ofrecer actualización incompatible");
 
  s=harness({body:feed("9.0","128.0","https://evil.example/xpi")});r=await s.send("lookoutCheckUpdates");
