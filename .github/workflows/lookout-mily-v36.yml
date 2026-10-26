@@ -59,8 +59,7 @@ jobs:
           done
       - name: Decode real TNEF samples against known attachments
         run: node v3.6/tests/test_real_tnef.js
-      - name: Thunderbird extension compatibility linter (advisory)
-        continue-on-error: true
+      - name: Thunderbird extension compatibility linter (required)
         run: |
           git clone --depth=1 https://github.com/thunderbird/webext-linter.git /tmp/thunderbird-linter
           cd /tmp/thunderbird-linter
