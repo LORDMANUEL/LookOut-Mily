@@ -1,6 +1,6 @@
 # LookOut-Mily — convertidor TNEF para Thunderbird
 
-[![LookOut-Mily 3.6.0](https://img.shields.io/badge/LookOut--Mily-3.6.0-13ad9c?style=for-the-badge)](https://github.com/LORDMANUEL/LookOut-Mily/releases/tag/v3.6.0-rc.2)
+[![LookOut-Mily 3.6.0](https://img.shields.io/badge/LookOut--Mily-3.6.0-13ad9c?style=for-the-badge)](https://github.com/LORDMANUEL/LookOut-Mily/releases/tag/v3.6.0)
 [![Website](https://img.shields.io/badge/Website-GitHub_Pages-236393?style=for-the-badge)](https://lordmanuel.github.io/LookOut-Mily/)
 [![Thunderbird](https://img.shields.io/badge/Thunderbird-128%2B-3c74c5?style=for-the-badge)](https://www.thunderbird.net/)
 
@@ -38,7 +38,7 @@ No se procesan de forma masiva todos los correos de la cuenta.
 
 ## Pruebas y compatibilidad
 
-| Comprobación | Resultado de la RC2 |
+| Comprobación | Resultado de la 3.6.0 |
 | --- | --- |
 | 12 muestras públicas reales de TNEF | **12/12**, nombres y cantidades de adjuntos esperados |
 | Categorías de pruebas TNEF sintéticas | **11**, incluidos datos binarios y archivos vacíos |
@@ -74,7 +74,7 @@ Las pruebas automáticas no garantizan compatibilidad universal con todos los co
 - [Informe técnico de QA](https://github.com/LORDMANUEL/LookOut-Mily/blob/feature/lookout-mily-v3.6/v3.6/QA_REPORT_2026-10-26.md)
 - [Seguimiento de pruebas y futuras mejoras](https://github.com/LORDMANUEL/LookOut-Mily/issues/5)
 - [Reporte de problemas](https://github.com/LORDMANUEL/LookOut-Mily/issues)
-- [Thunderbird Add-ons](https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/) — verificar la versión firmada disponible antes de instalar en producción.
+- [Thunderbird Add-ons](https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/) — consultar las versiones distribuidas mediante el catálogo ATN; la edición de GitHub es independiente.
 
 ## Créditos y licencia
 
