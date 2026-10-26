@@ -30,9 +30,9 @@ assert len(audit.ids)==len(set(audit.ids)),[x for x,n in Counter(audit.ids).item
 assert not audit.images, "Missing alt on image(s): " + str(audit.images)
 assert not audit.bad_links, "Missing noopener on external links: " + str(audit.bad_links)
 assert not set(audit.uses)-set(audit.symbols), "Undefined SVG icons: " + str(set(audit.uses)-set(audit.symbols))
-assert '3.6.0' in html and 'RC2' in html and 'winmail.dat' in html
-assert '3.5.10' in html and 'sin firma' in html
-assert 'releases/download/v3.6.0-rc.2/lookout-mily-3.6.0.xpi' in html
+assert '3.6.0' in html and 'winmail.dat' in html
+assert 'versión pública' in html and 'no necesita firma ATN' in html
+assert 'releases/download/v3.6.0/lookout-mily-3.6.0.xpi' in html
 assert 'prefers-reduced-motion' in css and 'max-width: 600px' in css
 assert 'www.google-analytics.com' not in html and '<script' not in html
 print('PASS semantic HTML, '+str(len(audit.ids))+' unique IDs, '+str(len(audit.uses))+' SVG icon uses, accessibility and honest release labels')
