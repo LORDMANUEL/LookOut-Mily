@@ -15,7 +15,7 @@
 
 **[Descargar XPI 3.6.0](https://github.com/LORDMANUEL/LookOut-Mily/releases/download/v3.6.0/lookout-mily-3.6.0.xpi)** · **[Ver nueva web con explicación y guía](https://lordmanuel.github.io/LookOut-Mily/)**
 
-La 3.6.0 es la **versión pública de GitHub**, aprobada para distribución por el mantenedor y probada mediante una batería automatizada. La instalación en Thunderbird ya fue confirmada. La validación seguirá ampliándose con correos reales y pruebas de migración; la revisión en el catálogo ATN es opcional e independiente. Thunderbird no exige firma ATN para instalar el XPI.
+La 3.6.0 es la **versión pública de GitHub**, aprobada para distribución por el mantenedor y probada mediante una batería automatizada. La instalación en Thunderbird ya fue confirmada. La validación seguirá ampliándose con correos reales y pruebas de migración; la revisión en el catálogo ATN es independiente y no acepta la variante con update_url externo. Thunderbird no exige firma ATN para instalar el XPI.
 
 ## Qué mejora la versión 3.6
 
@@ -43,7 +43,7 @@ No se procesan de forma masiva todos los correos de la cuenta.
 | 12 muestras públicas reales de TNEF | **12/12**, nombres y cantidades de adjuntos esperados |
 | Categorías de pruebas TNEF sintéticas | **11**, incluidos datos binarios y archivos vacíos |
 | Protección de mensajes originales | **8** escenarios automatizados |
-| Linter oficial de Thunderbird | **0 errores y 0 advertencias** |
+| Linter oficial de Thunderbird | **0 errores inesperados y 0 advertencias; excepción explícita para update_url externo, que ATN no permite listar** |
 | Compatibilidad de APIs | **Simulada** para Thunderbird 128, 140, 153 y 158 |
 | Instalación/migración 3.5.9 → 3.6.0 en Thunderbird | Validación de migración ampliada pendiente |
 | Firma oficial ATN | Opcional para figurar en el catálogo ATN |
