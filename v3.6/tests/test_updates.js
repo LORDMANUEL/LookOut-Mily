@@ -43,11 +43,20 @@ function harness({current="3.6.0",tb="158.0.1",body=feed("3.6.1"),fail=false}={}
  s=harness({body:feed("3.6.1","159.0"),tb:"153.5.1esr"});r=await s.send("lookoutCheckUpdates");
  assert.equal(r.available,false,"No ofrecer actualización incompatible");
 
+ s=harness({body:feed("3.6.1","128.0","https://github.com/LORDMANUEL/LookOut-Mily/releases/download/v3.6.1/lookout-mily-3.6.1.xpi")});
+ r=await s.send("lookoutCheckUpdates");
+ assert.equal(r.available,true,"Detectar futuras actualizaciones firmadas desde GitHub Releases");
+ assert.equal(r.latestVersion,"3.6.1","Versión en GitHub Releases correcta");
+
+ s=harness({body:feed("9.0","128.0","https://github.com/OtherOwner/LookOut-Mily/releases/download/v9.0/xpi")});
+ r=await s.send("lookoutCheckUpdates");
+ assert.equal(r.available,false,"Rechazar enlaces Releases ajenos al repositorio");
+
  s=harness({body:feed("9.0","128.0","https://evil.example/xpi")});r=await s.send("lookoutCheckUpdates");
  assert.equal(r.available,false,"Descartar origen no confiable");
 
  s=harness({fail:true});r=await s.send("lookoutCheckUpdates");
  assert.ok(r.error.includes("offline"),"Red fuera de línea no debe romper complemento");
 
- console.log("OK: 7 grupos de pruebas de actualización");
+ console.log("OK: 9 grupos de pruebas de actualización");
 })().catch(e=>{console.error(e);process.exitCode=1});
