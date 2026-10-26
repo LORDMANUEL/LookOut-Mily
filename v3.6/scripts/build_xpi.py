@@ -5,6 +5,7 @@ from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
 import hashlib
 import sys
+from safety_overrides import patch_decoder, patch_backend, patch_options
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "lookout-mily-3.5.10.xpi"
@@ -24,6 +25,12 @@ def components():
         data = {n: z.read(n) for n in z.namelist()}
     for destination,source in NEW_FILES.items():
         data[destination] = (OVERLAY / source).read_bytes()
+    for name, patch in (
+        ("tnef_decoder.js", patch_decoder),
+        ("background.js", patch_backend),
+        ("options/options.js", patch_options),
+    ):
+        data[name] = patch(data[name].decode("utf-8")).encode("utf-8")
     return data
 
 def verify(expected):
