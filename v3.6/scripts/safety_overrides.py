@@ -58,7 +58,13 @@ def patch_decoder(source: str) -> str:
     return false;
   let offset = 6, count = 0;
   while (offset < bytes.length) {
-    if (bytes.length - offset < 11 || ++count > 100000) return false;
+    const remaining = bytes.length - offset;
+    if (remaining < 11) {
+      if (remaining > 2) return false;
+      for (let i = offset; i < bytes.length; i++) if (bytes[i] !== 0) return false;
+      return true; // Some legacy clients pad the final TNEF with up to two NUL bytes.
+    }
+    if (++count > 100000) return false;
     const n = (bytes[offset + 5] | (bytes[offset + 6] << 8) |
       (bytes[offset + 7] << 16) | (bytes[offset + 8] << 24)) >>> 0;
     if (n > bytes.length - offset - 11) return false;
