@@ -1,226 +1,223 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LookOut-Mily | Conversion winmail.dat para Thunderbird</title>
-  <meta name="description" content="LookOut-Mily convierte winmail.dat y TNEF de Outlook en adjuntos normales dentro de Thunderbird, con conversion del correo abierto y reemplazo controlado.">
+  <meta name="theme-color" content="#0b1930">
+  <meta name="description" content="LookOut-Mily 3.6.0 convierte adjuntos winmail.dat y TNEF de Outlook en archivos utilizables en Thunderbird. Descarga RC2, consulta novedades, compatibilidad y guía de uso.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="LookOut-Mily 3.6.0 — Outlook sin winmail.dat">
+  <meta property="og:description" content="Recupera los adjuntos de Outlook en Thunderbird. Rediseño 3.6, conversión TNEF y protección del correo original.">
+  <meta property="og:url" content="https://lordmanuel.github.io/LookOut-Mily/">
+  <link rel="canonical" href="https://lordmanuel.github.io/LookOut-Mily/">
   <link rel="icon" type="image/png" href="./assets/logo-32.png">
   <link rel="stylesheet" href="./styles.css">
+  <title>LookOut-Mily 3.6.0 | Convertidor TNEF para Thunderbird</title>
 </head>
 <body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 2 8 4v6c0 5-3.4 8.1-8 10-4.6-1.9-8-5-8-10V6z"/><path d="m8.5 12 2.3 2.4 4.7-5"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l5 5v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zM14 2v6h5"/><path d="M9 13h6m-6 4h6"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-7z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 11a9 9 0 0 0-15-6L3 8m0-6v6h6M3 13a9 9 0 0 0 15 6l3-3m0 6v-6h-6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="12" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 15v3"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5zm-9 9 9 5 9-5M3 16l9 5 9-5"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M9.5 3 9 5.5 6.5 7 4 6 2.5 9l2 2-.1 2L2.5 15 4 18l2.5-1L9 18.5 9.5 21h5l.5-2.5 2.5-1.5 2.5 1 1.5-3-2-2v-2l2-2L20 6l-2.5 1L15 5.5 14.5 3z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-4.5 1.3-4.5-2.3-6.3-2.8m12.6 5v-3.4a3.2 3.2 0 0 0-.9-2.4c3-.3 6.1-1.5 6.1-6.7a5.3 5.3 0 0 0-1.4-3.6 4.8 4.8 0 0 0-.1-3.6s-1.1-.4-3.7 1.4a13 13 0 0 0-6.6 0C6.1 1.1 5 1.5 5 1.5a4.8 4.8 0 0 0-.1 3.6 5.3 5.3 0 0 0-1.4 3.6c0 5.2 3.1 6.4 6.1 6.7A3.2 3.2 0 0 0 8.7 18v3.4"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 11v6m0-10h.01"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="15" rx="2"/><path d="M8 22h8m-4-4v4"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 3h7v7m0-7-10 10"/><path d="M21 14v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  </svg>
+
   <header class="site-header">
-    <div class="container header-row">
-      <a class="brand" href="#top">
-        <img src="./assets/logo-64.png" alt="LookOut-Mily">
-        <span>LookOut-Mily</span>
+    <div class="container nav-wrap">
+      <a class="brand" href="#inicio" aria-label="LookOut-Mily, inicio">
+        <span class="brand-icon"><img src="./assets/logo-64.png" alt="" width="36" height="36"></span>
+        <span class="brand-name">LookOut<span class="brand-highlight">Mily</span><small>para Thunderbird</small></span>
       </a>
-      <nav class="site-nav" aria-label="Principal">
-        <a href="#funciona">Como funciona</a>
-        <a href="#estabilidad">Estabilidad</a>
-        <a href="#descarga">Descarga</a>
-        <a href="https://github.com/LORDMANUEL/LookOut-Mily" target="_blank" rel="noreferrer">GitHub</a>
+      <nav class="desktop-nav" aria-label="Navegación principal">
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#funciones">Características</a>
+        <a href="#versiones">Versiones</a>
+        <a href="#preguntas">Preguntas</a>
       </nav>
+      <a class="nav-download" href="#descargar"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg> Descargar 3.6</a>
+      <details class="mobile-menu">
+        <summary aria-label="Abrir menú de navegación"><span></span><span></span><span></span></summary>
+        <nav aria-label="Navegación móvil">
+          <a href="#como-funciona">Cómo funciona</a>
+          <a href="#funciones">Características</a>
+          <a href="#versiones">Versiones</a>
+          <a href="#preguntas">Preguntas</a>
+          <a href="#descargar">Descargar</a>
+        </nav>
+      </details>
     </div>
   </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <div class="eyebrow">Thunderbird 128+ · Release 3.5.10</div>
-          <h1>LookOut-Mily</h1>
-          <p class="hero-text">
-            Convierte correos con <code>winmail.dat</code> y TNEF de Outlook en mensajes utilizables dentro de Thunderbird, con adjuntos normales, reemplazo controlado y diagnostico por logs.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/" target="_blank" rel="noreferrer">Descargar en Thunderbird</a>
-            <a class="button button-secondary" href="https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.10.xpi" target="_blank" rel="noreferrer">Bajar XPI</a>
+  <main id="contenido">
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero-grid container">
+        <div class="hero-content">
+          <div class="release-eyebrow"><span class="pulse"></span> NUEVA VERSIÓN <strong>3.6.0</strong><span class="eyebrow-divider"></span> RC2 disponible para pruebas</div>
+          <h1 id="hero-title">Outlook envió <span class="strike-mark">winmail.dat</span>.<br><span class="hero-gradient">Tú recibe archivos.</span></h1>
+          <p class="hero-lede">Recupera documentos, imágenes y adjuntos de correos de Microsoft Outlook directamente en Thunderbird. Sin complicaciones, sin convertir toda tu bandeja y <strong>sin borrar el mensaje original</strong>.</p>
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="https://github.com/LORDMANUEL/LookOut-Mily/releases/download/v3.6.0-rc.2/lookout-mily-3.6.0.xpi" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg> Descargar 3.6.0 RC2</a>
+            <a class="btn btn-outline" href="#como-funciona">Ver cómo funciona <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
-          <ul class="hero-badges" aria-label="Indicadores clave">
-            <li>Convierte solo el correo abierto</li>
-            <li>Evita reprocesos en cascada</li>
-            <li>Logs exportables para soporte</li>
-          </ul>
+          <div class="hero-smallnote"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg> Candidato de pruebas sin firma ATN; requiere validación final en Thunderbird. <a href="#versiones">Ver estado</a>.</div>
+          <div class="hero-metrics" aria-label="Resultados de pruebas automatizadas">
+            <div><strong>12/12</strong><span>muestras TNEF reales</span></div>
+            <div><strong>128+</strong><span>Thunderbird declarado</span></div>
+            <div><strong>0</strong><span>errores del linter</span></div>
+          </div>
         </div>
-
-        <div class="hero-visual" aria-label="Vista conceptual del complemento">
-          <div class="visual-window">
-            <div class="window-bar">
-              <span></span><span></span><span></span>
-            </div>
-            <div class="window-body">
-              <div class="message-list">
-                <div class="list-item active">
-                  <strong>Mensaje detectado</strong>
-                  <small>winmail.dat encontrado</small>
-                </div>
-                <div class="list-item">
-                  <strong>Conversion segura</strong>
-                  <small>Adjuntos reales listos</small>
-                </div>
-                <div class="list-item">
-                  <strong>Logs activos</strong>
-                  <small>Diagnostico exportable</small>
-                </div>
+        <div class="hero-art" role="img" aria-label="Representación de un correo Outlook con winmail.dat que LookOut-Mily convierte en archivos PDF, Excel y JPG; el correo original permanece.">
+          <div class="art-glow"></div>
+          <div class="mail-app">
+            <div class="app-titlebar"><span class="app-dot"></span><span class="app-dot"></span><span class="app-dot"></span><span class="app-label">LookOut-Mily · Thunderbird</span><span class="app-dots">•••</span></div>
+            <div class="app-content">
+              <div class="sender-row"><span class="sender-avatar">O</span><div><strong>Documentos de Outlook</strong><small>adjuntos@ejemplo.com</small></div><span class="received">Hoy</span></div>
+              <p class="app-subject">Información solicitada</p>
+              <p class="mail-body-text">Te comparto los archivos adjuntos.</p>
+              <div class="raw-attachment"><span class="file-glyph warning">DAT</span><div><strong>winmail.dat</strong><small>Formato TNEF de Outlook</small></div><span class="raw-label">Contenedor</span></div>
+              <div class="conversion-step"><span class="conversion-line"></span><span class="conversion-icon"><svg class="icon" aria-hidden="true"><use href="#i-bolt"/></svg></span><span class="conversion-text">LookOut-Mily recupera tus archivos</span><span class="conversion-line"></span></div>
+              <div class="output-list">
+                <div class="output-item"><span class="file-glyph pdf">PDF</span><div><strong>cotizacion.pdf</strong><small>Documento PDF</small></div><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></div>
+                <div class="output-item"><span class="file-glyph xls">XLS</span><div><strong>reporte.xlsx</strong><small>Hoja de cálculo</small></div><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></div>
+                <div class="output-item"><span class="file-glyph img">JPG</span><div><strong>imagen.jpg</strong><small>Imagen adjunta</small></div><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></div>
               </div>
-              <div class="message-panel">
-                <div class="panel-head">
-                  <img src="./assets/logo-64.png" alt="">
-                  <div>
-                    <strong>LookOut-Mily</strong>
-                    <small>Flujo estable de conversion individual</small>
-                  </div>
-                </div>
-                <div class="attachment-strip">
-                  <div class="attachment-chip">winmail.dat</div>
-                  <div class="attachment-chip success">factura.pdf</div>
-                  <div class="attachment-chip success">orden.xlsx</div>
-                  <div class="attachment-chip success">imagen.jpg</div>
-                </div>
-                <div class="status-grid">
-                  <div>
-                    <span class="metric">1</span>
-                    <small>correo abierto</small>
-                  </div>
-                  <div>
-                    <span class="metric">3</span>
-                    <small>adjuntos recuperados</small>
-                  </div>
-                  <div>
-                    <span class="metric">0</span>
-                    <small>conversiones en lote</small>
-                  </div>
-                </div>
-                <div class="flow-note">
-                  Reutiliza la pestaña actual cuando la copia convertida ya fue creada.
-                </div>
-              </div>
+              <div class="safe-row"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg> El correo original se conserva</div>
             </div>
           </div>
+          <div class="art-mini-badge"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Adjuntos recuperados</div>
         </div>
       </div>
     </section>
 
-    <section class="band problem-band">
-      <div class="container narrow">
-        <p class="section-kicker">Hecho para el problema real</p>
-        <h2>Cuando Outlook encierra todo en winmail.dat, LookOut-Mily lo deja legible en Thunderbird.</h2>
-        <div class="before-after">
-          <div class="state-box">
-            <span class="state-label">Antes</span>
-            <strong>Un solo adjunto opaco</strong>
-            <p>El correo llega con TNEF y los archivos utiles quedan atrapados en un contenedor dificil de usar.</p>
-          </div>
-          <div class="state-box">
-            <span class="state-label good">Despues</span>
-            <strong>Adjuntos normales y flujo controlado</strong>
-            <p>La extension extrae los archivos reales, evita reconversiones innecesarias y deja soporte de logs cuando hace falta.</p>
-          </div>
-        </div>
+    <section class="value-strip" aria-label="Beneficios">
+      <div class="container value-row">
+        <span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Un correo a la vez</span>
+        <span><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg> Original protegido</span>
+        <span><svg class="icon" aria-hidden="true"><use href="#i-bolt"/></svg> Extracción TNEF</span>
+        <span><svg class="icon" aria-hidden="true"><use href="#i-refresh"/></svg> Avisos de nuevas versiones</span>
       </div>
     </section>
 
-    <section class="band" id="funciona">
+    <section class="section problem" id="problema">
       <div class="container">
-        <div class="section-head">
-          <p class="section-kicker">Como funciona</p>
-          <h2>Un flujo corto, claro y pensado para no pegar la bandeja.</h2>
-        </div>
-        <div class="steps">
-          <article class="step-card">
-            <span class="step-index">01</span>
-            <h3>Detecta solo el mensaje abierto</h3>
-            <p>La conversion se dispara sobre el correo que el usuario esta viendo, no sobre toda la cuenta.</p>
+        <div class="section-heading centered"><span class="section-kicker">EL PROBLEMA, RESUELTO</span><h2>Un archivo extraño no debería impedirte trabajar.</h2><p>Algunos mensajes de Outlook encapsulan sus adjuntos en <code>winmail.dat</code>. Thunderbird puede mostrar ese contenedor en lugar de los archivos que esperabas. LookOut-Mily te ayuda a recuperar su contenido.</p></div>
+        <div class="compare">
+          <article class="compare-panel before">
+            <span class="compare-top"><span class="compare-bullet danger"></span> Antes: correo de Outlook</span>
+            <div class="compare-email"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><div><strong>Mensaje recibido</strong><small>Adjuntos difíciles de utilizar</small></div></div>
+            <div class="compare-file"><span class="file-glyph warning">DAT</span><strong>winmail.dat</strong><span class="file-question">?</span></div>
+            <p>No ves directamente el PDF, la hoja de cálculo o las imágenes enviadas.</p>
           </article>
-          <article class="step-card">
-            <span class="step-index">02</span>
-            <h3>Extrae los adjuntos reales</h3>
-            <p>Lee el contenedor TNEF, normaliza archivos y prepara la copia convertida con adjuntos utilizables.</p>
-          </article>
-          <article class="step-card">
-            <span class="step-index">03</span>
-            <h3>Reemplaza y deja trazabilidad</h3>
-            <p>Puede abrir la copia limpia en la misma pestaña y conserva logs exportables para soporte tecnico.</p>
+          <div class="compare-arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow"/></svg></div>
+          <article class="compare-panel after">
+            <span class="compare-top"><span class="compare-bullet good"></span> Después: LookOut-Mily 3.6</span>
+            <div class="compare-email"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><div><strong>Adjuntos recuperados</strong><small>Disponibles para guardar</small></div></div>
+            <div class="compare-files"><span class="mini-file"><span class="file-glyph pdf">PDF</span> documento.pdf</span><span class="mini-file"><span class="file-glyph xls">XLS</span> datos.xlsx</span><span class="mini-file"><span class="file-glyph img">JPG</span> foto.jpg</span></div>
+            <p>Obtienes archivos convencionales y, si creas una copia MIME, se mantiene el correo original.</p>
           </article>
         </div>
+        <p class="comparison-disclaimer">Representación ilustrativa: los tipos y nombres reales de archivos dependen del mensaje recibido.</p>
       </div>
     </section>
 
-    <section class="band stability-band" id="estabilidad">
+    <section class="section features-section" id="funciones">
       <div class="container">
-        <div class="section-head">
-          <p class="section-kicker">Estabilidad</p>
-          <h2>3.5.10 deja el complemento mejor alineado con ATN y mantiene el flujo estable de conversion individual.</h2>
-        </div>
-        <div class="spec-grid">
-          <div class="spec-row">
-            <span>Base funcional</span>
-            <strong>Se mantiene el flujo de conversion por correo abierto</strong>
-          </div>
-          <div class="spec-row">
-            <span>Revision Mozilla</span>
-            <strong>Sin APIs incompatibles, sin permiso <code>compose</code> y con paquete limpio</strong>
-          </div>
-          <div class="spec-row">
-            <span>Idiomas</span>
-            <strong>Localizacion en espanol e ingles</strong>
-          </div>
-          <div class="spec-row">
-            <span>Creador</span>
-            <strong>Luis Manuel Fajardo Rivera</strong>
-          </div>
+        <div class="section-heading"><span class="section-kicker">NOVEDADES DE LA VERSIÓN 3.6</span><h2>Más que convertir archivos.<br><span class="muted-title">Una experiencia mucho más clara.</span></h2><p>Una interfaz renovada y un motor de conversión más robusto, con decisiones de seguridad que protegen tus mensajes.</p></div>
+        <div class="feature-grid">
+          <article class="feature-card"><span class="feature-icon teal"><svg class="icon"><use href="#i-file"/></svg></span><h3>Extrae archivos reales</h3><p>Recupera documentos, imágenes y otros adjuntos de contenedores TNEF compatibles, incluidos nombres Unicode y varios archivos por mensaje.</p></article>
+          <article class="feature-card"><span class="feature-icon blue"><svg class="icon"><use href="#i-monitor"/></svg></span><h3>Interfaz más intuitiva</h3><p>Nuevo panel de adjuntos y ajustes organizados, con tema claro u oscuro y controles más accesibles.</p></article>
+          <article class="feature-card"><span class="feature-icon mint"><svg class="icon"><use href="#i-shield"/></svg></span><h3>Conserva el original</h3><p>Si activas la creación de una copia MIME, el mensaje original permanece intacto. No necesitas reemplazarlo para guardar archivos.</p></article>
+          <article class="feature-card"><span class="feature-icon violet"><svg class="icon"><use href="#i-refresh"/></svg></span><h3>Avisos de actualización</h3><p>Consulta GitHub para detectar nuevas versiones compatibles, sin notificaciones repetidas ni instalaciones silenciosas.</p></article>
+          <article class="feature-card"><span class="feature-icon amber"><svg class="icon"><use href="#i-lock"/></svg></span><h3>Respeta el cifrado</h3><p>Los mensajes protegidos con S/MIME u OpenPGP no se reescriben. El contenido cifrado requiere una clave legítima para leerse.</p></article>
+          <article class="feature-card"><span class="feature-icon slate"><svg class="icon"><use href="#i-settings"/></svg></span><h3>Diagnóstico y control</h3><p>Configura descargas, conversión opcional y registros locales exportables para resolver incidencias sin procesos masivos.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="band download-band" id="descarga">
-      <div class="container download-grid">
-        <div>
-          <p class="section-kicker">Descarga</p>
-          <h2>Listo para instalar, revisar o publicar.</h2>
-          <p>
-            Descargalo desde Thunderbird Add-ons como opcion principal o usa la XPI directa como respaldo. El repositorio tambien incluye README, manifiesto de actualizacion y notas alineadas con la release 3.5.10.
-          </p>
+    <section class="section process-section" id="como-funciona">
+      <div class="container">
+        <div class="section-heading centered"><span class="section-kicker">CÓMO FUNCIONA</span><h2>De winmail.dat a tus adjuntos<br>en tres pasos.</h2><p>Sin aprender herramientas complicadas ni reenviar el correo a otro servicio.</p></div>
+        <div class="step-grid">
+          <article class="step-card"><span class="step-no">01</span><div class="step-symbol"><svg class="icon"><use href="#i-mail"/></svg></div><h3>Abre tu correo</h3><p>Selecciona en Thunderbird un mensaje de Outlook que contenga <code>winmail.dat</code>.</p></article>
+          <article class="step-card"><span class="step-no">02</span><div class="step-symbol"><svg class="icon"><use href="#i-layers"/></svg></div><h3>Revisa los archivos</h3><p>Abre LookOut-Mily. El complemento analiza el contenedor y muestra los adjuntos recuperables.</p></article>
+          <article class="step-card"><span class="step-no">03</span><div class="step-symbol"><svg class="icon"><use href="#i-download"/></svg></div><h3>Guarda y continúa</h3><p>Descarga uno o todos los archivos. Si lo prefieres, crea una copia del correo con adjuntos MIME.</p></article>
         </div>
-        <div class="download-panel">
-          <div class="download-meta">
-            <span class="meta-label">Version</span>
-            <strong>3.5.10</strong>
-          </div>
-          <div class="download-meta">
-            <span class="meta-label">Compatibilidad</span>
-            <strong>Thunderbird 128.0 o superior</strong>
-          </div>
-          <div class="download-meta">
-            <span class="meta-label">Canal oficial</span>
-            <strong>Thunderbird Add-ons</strong>
-          </div>
-          <div class="download-links">
-            <a class="button button-primary" href="https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/" target="_blank" rel="noreferrer">Abrir en Thunderbird Add-ons</a>
-            <a class="button button-secondary" href="https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.10.xpi" target="_blank" rel="noreferrer">Descargar XPI</a>
-            <a class="button button-secondary" href="https://github.com/LORDMANUEL/LookOut-Mily/blob/main/README.md" target="_blank" rel="noreferrer">Leer documentacion</a>
-          </div>
+      </div>
+    </section>
+
+    <section class="section version-section" id="versiones">
+      <div class="container version-grid">
+        <div class="version-lead">
+          <span class="section-kicker">VERSIÓN Y COMPATIBILIDAD</span>
+          <h2>LookOut-Mily <span class="version-large">3.6.0</span></h2>
+          <p>La 3.6 trae el rediseño y las mejoras de conversión. Ya puedes descargar la <strong>RC2 pública de pruebas</strong>, pero la firma ATN y la prueba completa de migración siguen pendientes.</p>
+          <div class="qa-chips"><span>12/12 TNEF reales</span><span>0 hallazgos del linter</span><span>Compilación reproducible</span></div>
+          <a class="text-link" href="https://github.com/LORDMANUEL/LookOut-Mily/blob/feature/lookout-mily-v3.6/v3.6/QA_REPORT_2026-10-26.md" target="_blank" rel="noopener noreferrer">Consultar el informe de pruebas <svg class="icon"><use href="#i-external"/></svg></a>
+        </div>
+        <div class="version-panel">
+          <div class="version-panel-header"><span class="version-number">3.6.0 <small>RC2</small></span><span class="status-pill">Disponible para pruebas</span></div>
+          <div class="version-detail"><span>Compatibilidad declarada</span><strong>Thunderbird 128 o superior</strong></div>
+          <div class="version-detail"><span>Formato de extensión</span><strong>MailExtensions · Manifest V2</strong></div>
+          <div class="version-detail"><span>Distribución</span><strong>GitHub Releases · XPI sin firma ATN</strong></div>
+          <div class="version-detail"><span>Versión aún en manifiesto público</span><strong>3.5.10</strong></div>
+          <div class="version-message"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><p>La instalación de RC2 ya se ha confirmado en un equipo de prueba; todavía no están concluidas las pruebas de conversión en Thunderbird real y migración desde 3.5.9. No debe anunciarse como estable.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section safety-section">
+      <div class="container safety-grid">
+        <div class="safety-sign"><svg class="icon"><use href="#i-shield"/></svg></div>
+        <div><span class="section-kicker">PROTECCIÓN DE DATOS</span><h2>Tu correo sigue siendo tuyo.</h2><p>LookOut-Mily procesa el mensaje abierto dentro de Thunderbird. La consulta de actualizaciones a GitHub utiliza metadatos de versión y no envía el cuerpo ni los adjuntos de tus correos.</p><p>Los mensajes realmente cifrados no se pueden convertir a contenido legible sin la clave de descifrado del destinatario. <strong>TNEF no es lo mismo que cifrado.</strong></p></div>
+        <a class="btn btn-outline light" href="https://github.com/LORDMANUEL/LookOut-Mily" target="_blank" rel="noopener noreferrer">Ver código fuente <svg class="icon"><use href="#i-external"/></svg></a>
+      </div>
+    </section>
+
+    <section class="section download-section" id="descargar">
+      <div class="container download-layout">
+        <div class="download-copy">
+          <span class="section-kicker">DESCARGA</span><h2>Empieza a probar<br>LookOut-Mily 3.6.</h2><p>Descarga la versión RC2 desde su publicación verificable en GitHub. Para una instalación corporativa o de producción, espera el paquete firmado y la actualización oficial.</p>
+          <div class="download-actions"><a class="btn btn-primary dark-on-light" href="https://github.com/LORDMANUEL/LookOut-Mily/releases/download/v3.6.0-rc.2/lookout-mily-3.6.0.xpi" target="_blank" rel="noopener noreferrer"><svg class="icon"><use href="#i-download"/></svg> Descargar XPI 3.6 RC2</a><a class="btn btn-light-outline" href="https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/" target="_blank" rel="noopener noreferrer">Ver en Thunderbird Add-ons <svg class="icon"><use href="#i-external"/></svg></a></div>
+          <p class="download-tip"><svg class="icon"><use href="#i-info"/></svg> Prueba el XPI en un perfil aislado. Si Thunderbird requiere firma, no deshabilites esa protección en tu perfil de trabajo.</p>
+        </div>
+        <div class="install-card">
+          <div class="install-head"><span class="step-symbol mini"><svg class="icon"><use href="#i-download"/></svg></span><div><strong>Cómo probar la RC2</strong><small>Thunderbird, perfil de pruebas</small></div></div>
+          <ol class="install-list"><li><span>1</span><p>Crea o utiliza un perfil de pruebas y realiza un respaldo.</p></li><li><span>2</span><p>Abre <strong>Complementos y temas</strong> en Thunderbird.</p></li><li><span>3</span><p>En el menú del engranaje, elige <strong>Instalar complemento desde archivo</strong>.</p></li><li><span>4</span><p>Selecciona el XPI, abre un correo con <code>winmail.dat</code> y revisa los adjuntos.</p></li></ol>
+          <a class="install-source" href="https://github.com/LORDMANUEL/LookOut-Mily/releases/tag/v3.6.0-rc.2" target="_blank" rel="noopener noreferrer">Ver notas de RC2 en GitHub <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq-section" id="preguntas">
+      <div class="container faq-grid"><div class="faq-lead"><span class="section-kicker">PREGUNTAS FRECUENTES</span><h2>Las respuestas,<br>sin vueltas.</h2><p>Todo lo esencial para instalarlo y entender qué puede hacer.</p><a class="text-link" href="https://github.com/LORDMANUEL/LookOut-Mily/issues" target="_blank" rel="noopener noreferrer">Reportar un problema <svg class="icon"><use href="#i-external"/></svg></a></div>
+        <div class="faq-list">
+          <details><summary>¿Qué es exactamente winmail.dat? <svg class="icon"><use href="#i-chevron"/></svg></summary><p>Es un archivo contenedor en formato TNEF que Outlook puede utilizar para enviar adjuntos y formato enriquecido. No implica por sí mismo que el mensaje esté cifrado.</p></details>
+          <details><summary>¿LookOut-Mily puede leer correos cifrados sin firma? <svg class="icon"><use href="#i-chevron"/></svg></summary><p>Un mensaje S/MIME u OpenPGP cifrado necesita la clave legítima del destinatario aunque no tenga firma. El complemento evita modificar esos mensajes protegidos; no elude su cifrado.</p></details>
+          <details><summary>¿Se borra mi correo original al convertirlo? <svg class="icon"><use href="#i-chevron"/></svg></summary><p>No con la versión 3.6: si decides generar una copia MIME, el correo original se mantiene. La creación de copias está desactivada inicialmente.</p></details>
+          <details><summary>¿La 3.6 es ya la versión estable? <svg class="icon"><use href="#i-chevron"/></svg></summary><p>La RC2 está publicada en GitHub para pruebas. Ha pasado la batería automatizada, pero aún están pendientes la firma ATN, las pruebas de conversión en Thunderbird real y la validación de la actualización desde 3.5.9.</p></details>
+          <details><summary>¿Funciona en versiones antiguas de Thunderbird? <svg class="icon"><use href="#i-chevron"/></svg></summary><p>Se declara compatible con Thunderbird 128 y versiones posteriores, con verificaciones simuladas de APIs en 128, 140, 153 y 158. Thunderbird 115 no está incluido en el soporte previsto para 3.6.</p></details>
+          <details><summary>¿Cómo recibiré avisos cuando haya otra versión? <svg class="icon"><use href="#i-chevron"/></svg></summary><p>La 3.6 consulta los metadatos de actualización de GitHub periódicamente y desde Opciones. Si encuentra una versión más reciente y compatible, muestra un aviso y ofrece abrir la publicación; no instala automáticamente XPI sin firma.</p></details>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-row">
-      <div class="footer-brand">
-        <img src="./assets/logo-32.png" alt="">
-        <div>
-          <strong>LookOut-Mily</strong>
-          <small>Conversion TNEF para Thunderbird</small>
-        </div>
-      </div>
-      <div class="footer-links">
-        <a href="https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/" target="_blank" rel="noreferrer">Thunderbird Add-ons</a>
-        <a href="https://github.com/LORDMANUEL/LookOut-Mily" target="_blank" rel="noreferrer">GitHub</a>
-        <a href="https://github.com/LORDMANUEL/LookOut-Mily/issues" target="_blank" rel="noreferrer">Soporte</a>
-      </div>
-    </div>
+    <div class="container footer-main"><div class="footer-about"><a class="brand" href="#inicio"><span class="brand-icon"><img src="./assets/logo-64.png" alt="" width="34" height="34"></span><span class="brand-name">LookOut<span class="brand-highlight">Mily</span><small>para Thunderbird</small></span></a><p>Los adjuntos de Outlook, listos para trabajar en Thunderbird. Conversión TNEF de código abierto y una experiencia más sencilla.</p></div><div class="footer-column"><strong>Producto</strong><a href="#funciones">Características</a><a href="#como-funciona">Cómo funciona</a><a href="#versiones">Compatibilidad</a><a href="#descargar">Descargar RC2</a></div><div class="footer-column"><strong>Recursos</strong><a href="https://github.com/LORDMANUEL/LookOut-Mily" target="_blank" rel="noopener noreferrer">Repositorio GitHub</a><a href="https://github.com/LORDMANUEL/LookOut-Mily/releases" target="_blank" rel="noopener noreferrer">Versiones</a><a href="https://github.com/LORDMANUEL/LookOut-Mily/pull/3" target="_blank" rel="noopener noreferrer">Desarrollo de 3.6</a><a href="https://github.com/LORDMANUEL/LookOut-Mily/issues" target="_blank" rel="noopener noreferrer">Reportar incidencia</a></div></div>
+    <div class="container footer-bottom"><span>LookOut-Mily · Adaptación y mantenimiento: Luis Manuel Fajardo Rivera · Basado en LookOut de Aron Rubin.</span><span>v3.6.0 RC2 · 2026</span></div>
   </footer>
 </body>
 </html>
