@@ -11,7 +11,7 @@ def patch_decoder(source: str) -> str:
     source = replacement(
         source,
         'name:        name        || "adjunto",',
-        'name:        String(name || "adjunto").replace(/\\0+$/g, "").replace(/[\\\\/]/g, "_"),',
+        'name:        String(name || "unknown.dat").replace(/\\0+$/g, "").replace(/[\\\\/]/g, "_"),',
         "remove null byte in filename"
     )
     source = replacement(
