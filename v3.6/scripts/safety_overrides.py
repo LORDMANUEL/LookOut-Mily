@@ -35,6 +35,15 @@ def patch_decoder(source: str) -> str:
         'return attr.len >= 0 && (attr.buf == null || attr.buf.length !== attr.len);',
         "accept complete zero-length attributes"
     )
+    # Read the current complete attribute even if the following attribute is
+    # only 11 bytes (a valid zero-length attribute). The previous loop
+    # incorrectly lost the filename in empty attachments.
+    source = replacement(
+        source,
+        'while (pkg.cur_attr && tnef_pack_data_left(instrm)) {',
+        'while (pkg.cur_attr) {',
+        "finish current attribute even when stream has a short final attribute"
+    )
     return source
 
 def patch_backend(source: str) -> str:
