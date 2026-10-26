@@ -18,7 +18,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validate packaged XPI and legacy engine
+      - name: Build XPI from baseline with safe decoder fixes
+        run: python3 v3.6/scripts/build_xpi.py
+      - name: Validate packaged XPI and guarded converter
         run: python3 v3.6/tests/validate_xpi.py
       - name: Verify XPI matches versioned sources
         run: python3 v3.6/scripts/build_xpi.py --verify
