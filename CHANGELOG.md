@@ -2,9 +2,9 @@
 
 El proyecto distingue **código en desarrollo** de **versión publicada**. Los cambios no se consideran disponibles en Thunderbird hasta que se firmen, publiquen y prueben.
 
-## [3.6.0] — RC2 pública de pruebas, sin firma (NO estable) — 2026-10-26
+## [3.6.0] — Versión pública 3.6.0 (GitHub Releases) — 2026-10-26
 
-**Estado:** pruebas automáticas aprobadas; quedan pendientes firma, instalación real en Thunderbird y migración desde 3.5.9. [PR #3](https://github.com/LORDMANUEL/LookOut-Mily/pull/3) · [Tareas de publicación #5](https://github.com/LORDMANUEL/LookOut-Mily/issues/5).
+**Estado:** edición pública; motor probado automáticamente, instalación confirmada en Thunderbird, pendientes únicamente pruebas ampliadas de correos reales y migración. El catálogo ATN es opcional y requiere una variante sin update_url externo. [PR #3](https://github.com/LORDMANUEL/LookOut-Mily/pull/3) · [Tareas de publicación #5](https://github.com/LORDMANUEL/LookOut-Mily/issues/5).
 
 ### Interfaz y experiencia
 
