@@ -1,0 +1,39 @@
+name: LookOut-Mily website 3.6 QA
+on:
+  push:
+    branches:
+      - feature/site-3.6-redesign
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'site-tests/**'
+      - '.github/workflows/site-3.6.yml'
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Static site audit
+        run: python3 site-tests/check_html.py
+      - name: Install browser for responsive smoke tests
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Test responsive site and capture screenshots
+        run: |
+          python3 -m http.server 8765 --directory docs > /tmp/site-server.log 2>&1 &
+          sleep 2
+          node site-tests/check-browser.mjs
+      - name: Preserve visual screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LookOut-Mily-3.6-Website-Preview
+          path: site-review/*.png
+          retention-days: 14
+          if-no-files-found: ignore
