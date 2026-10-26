@@ -80,10 +80,10 @@ jobs:
           npm ci --no-audit --no-fund
           set +e
           node verify.js "$GITHUB_WORKSPACE/lookout-mily-3.6.0.xpi" --report-format json > "$GITHUB_WORKSPACE/v3.6-lint-report.json"
-          lint_rc=$?
           set -e
           cat "$GITHUB_WORKSPACE/v3.6-lint-report.json"
-          exit "$lint_rc"
+          cd "$GITHUB_WORKSPACE"
+          python3 v3.6/tests/evaluate_linter.py
       - name: Retain Thunderbird lint evidence
         if: always()
         uses: actions/upload-artifact@v4
