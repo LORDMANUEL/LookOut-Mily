@@ -2,7 +2,7 @@
 """Repaqueta sin alterar el motor TNEF. --verify compara los contenidos con el XPI confirmado."""
 import argparse
 from pathlib import Path
-from zipfile import ZipFile, ZIP_DEFLATED
+from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 import hashlib
 import sys
 from safety_overrides import patch_decoder, patch_backend, patch_options
@@ -42,9 +42,14 @@ def verify(expected):
     print("OK: packaged 3.6.0 XPI exactly matches preserved 3.5.10 engine and v3.6 sources.")
 
 def build(expected):
-    with ZipFile(OUTPUT,"w",compression=ZIP_DEFLATED,compresslevel=9) as z:
+    with ZipFile(OUTPUT, "w", compression=ZIP_DEFLATED, compresslevel=9) as z:
         for name in sorted(expected):
-            z.writestr(name, expected[name])
+            # Stable ZIP timestamps and attributes: identical source -> identical SHA256.
+            info = ZipInfo(name, date_time=(2026, 1, 1, 0, 0, 0))
+            info.compress_type = ZIP_DEFLATED
+            info.external_attr = (0o100644 << 16)
+            info.create_system = 3
+            z.writestr(info, expected[name], compress_type=ZIP_DEFLATED, compresslevel=9)
     print(f"Built {OUTPUT}: {OUTPUT.stat().st_size} bytes")
     print("SHA256:",hashlib.sha256(OUTPUT.read_bytes()).hexdigest().upper())
 
