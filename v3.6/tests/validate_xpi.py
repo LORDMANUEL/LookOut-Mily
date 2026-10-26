@@ -40,12 +40,23 @@ with ZipFile(XPI) as z, ZipFile(BASE) as old:
         "saveSubfolder","enableLogs","btn-save","saved-msg","btn-export-logs",
         "btn-clear-logs","logs-status","update-card"),
       "popup/popup.html": ("status","extracted-section","extracted-list","toolbar",
-        "btn-save-all","original-section","original-list","divider","repo-link","update-card")
+        "btn-save-all","original-section","original-list","divider","repo-link","opts-link","update-card")
     }
     for file,ids in expected.items():
         html=z.read(file).decode("utf8")
         for name in ids:
             assert f'id="{name}"' in html, f"{file} no tiene #{name}"
+    # Detect missing UI elements used by the ORIGINAL popup/options scripts.
+    # Without this check, a redesigned popup could render but fail at runtime.
+    for page, script in (("popup/popup.html", "popup/popup.js"),
+                         ("options/options.html", "options/options.js")):
+        html = z.read(page).decode("utf8")
+        js = z.read(script).decode("utf8")
+        declared = re.findall(r'\\bid=["\\\']([^"\\\']+)["\\\']', html)
+        assert len(declared) == len(set(declared)), f"Duplicate HTML IDs: {page}"
+        expected_ids = re.findall(r'getElementById\\(["\\\']([^"\\\']+)["\\\']\\)', js)
+        missing = set(expected_ids) - set(declared)
+        assert not missing, f"{page} is missing UI controls used by {script}: {sorted(missing)}"
     assert "https://raw.githubusercontent.com/*" in manifest["permissions"]
     assert "alarms" in manifest["permissions"]
 print("OK: XPI íntegro, núcleo original + 3 parches de seguridad exactos, 2 interfaces y manifest verificados")
