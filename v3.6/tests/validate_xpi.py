@@ -6,11 +6,13 @@ import json
 import hashlib
 import re
 import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+from safety_overrides import patch_decoder, patch_backend, patch_options
 ROOT = Path(__file__).resolve().parents[2]
 XPI = ROOT / "lookout-mily-3.6.0.xpi"
 BASE = ROOT / "lookout-mily-3.5.10.xpi"
-BACKEND_FILES = ("background.js","mapi_props.js","tnef_decoder.js",
-  "popup/popup.js","options/options.js","preview/preview.js","i18n.js")
+BACKEND_FILES = ("mapi_props.js",
+  "popup/popup.js","preview/preview.js","i18n.js")
 with ZipFile(XPI) as z, ZipFile(BASE) as old:
     assert z.testzip() is None, "CRC inválido"
     names = z.namelist()
@@ -25,6 +27,10 @@ with ZipFile(XPI) as z, ZipFile(BASE) as old:
         assert script in names, f"Script ausente: {script}"
     for key in BACKEND_FILES:
         assert z.read(key) == old.read(key), f"Regresión en código original: {key}"
+    for key, patch in (("background.js", patch_backend),
+                       ("tnef_decoder.js", patch_decoder),
+                       ("options/options.js", patch_options)):
+        assert z.read(key).decode("utf8") == patch(old.read(key).decode("utf8")), f"Parche inesperado: {key}"
     for key in ("options/options.html","popup/popup.html"):
         page = z.read(key).decode("utf8")
         assert "../ui/theme.css" in page
@@ -42,5 +48,5 @@ with ZipFile(XPI) as z, ZipFile(BASE) as old:
             assert f'id="{name}"' in html, f"{file} no tiene #{name}"
     assert "https://raw.githubusercontent.com/*" in manifest["permissions"]
     assert "alarms" in manifest["permissions"]
-print("OK: XPI íntegro, 7 archivos de lógica original intactos, 2 interfaces y manifest verificados")
+print("OK: XPI íntegro, núcleo original + 3 parches de seguridad exactos, 2 interfaces y manifest verificados")
 print("SHA256:",hashlib.sha256(XPI.read_bytes()).hexdigest().upper())
