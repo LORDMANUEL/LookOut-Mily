@@ -22,6 +22,7 @@ with ZipFile(XPI) as z, ZipFile(BASE) as old:
     assert manifest["manifest_version"] == 2
     assert manifest["browser_specific_settings"]["gecko"]["strict_min_version"] == "128.0"
     assert manifest["browser_specific_settings"]["gecko"]["id"] == "lookout-modern@addons.thunderbird.net"
+    assert manifest["browser_specific_settings"]["gecko"]["update_url"] == "https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/updates.json"
     assert manifest["message_display_action"]["default_popup"] == "popup/popup.html"
     for script in manifest["background"]["scripts"]:
         assert script in names, f"Script ausente: {script}"
