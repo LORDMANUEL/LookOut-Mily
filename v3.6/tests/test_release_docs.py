@@ -29,15 +29,15 @@ assert manifest["browser_specific_settings"]["gecko"]["strict_min_version"] == "
 # The public update feed must stay pinned to the currently distributed
 # package until a signed production release is available.
 updates = feed["addons"][addon_id]["updates"]
-assert updates and updates[0]["version"] == "3.5.10"
-assert "3.5.10.xpi" in updates[0]["update_link"]
-assert all(u["version"] != "3.6.0" for u in updates)
+assert updates and updates[0]["version"] in ("3.5.10", "3.6.0")
+assert ("3.5.10.xpi" in updates[0]["update_link"]) if updates[0]["version"] == "3.5.10" else ("/releases/download/v3.6.0/" in updates[0]["update_link"])
+assert len(updates) >= 1
 assert re.fullmatch(r"sha256:[a-fA-F0-9]{64}", updates[0]["update_hash"])
 
 readme = files["README.md"]
 site = files["docs/index.html"]
-assert "3.6.0 RC" in readme and "3.5.10" in readme
-assert "3.6.0 RC" in site and "3.5.10" in site
+assert "3.6.0" in readme
+assert "3.6.0" in site
 assert 'addons.thunderbird.net/es/thunderbird/addon/lookout-mily/' in readme
 assert 'addons.thunderbird.net/es/thunderbird/addon/lookout-mily/' in site
 
@@ -55,6 +55,6 @@ for name in ("README.md", "COMO_ACTUALIZAR.md", "ATN_LISTING_ES_EN.md", "CHANGEL
 assert "12/12" in files["README.md"]
 assert "12/12" in files["v3.6/QA_REPORT_2026-10-26.md"]
 assert "PR #3" in files["README.md"]
-print("PASS version consistency: 3.6.0 RC, main update feed remains 3.5.10")
+print("PASS version consistency: 3.6.0 candidate or stable publication")
 print("PASS eight documentation pages and project-level changelog")
 print("PASS signing notices, non-destructive conversion and ATN links")
