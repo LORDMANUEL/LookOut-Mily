@@ -10,8 +10,9 @@
   const NOTICE_ID = "lookout-mily-github-update";
   let inFlight = null;
   function versionParts(v) {
-    if (!/^\d+(?:\.\d+){1,3}$/.test(String(v || ""))) return null;
-    return String(v).split(".").map(Number);
+    const normalized = String(v || "").trim().replace(/esr$/i, "");
+    if (!/^\d+(?:\.\d+){1,3}$/.test(normalized)) return null;
+    return normalized.split(".").map(Number);
   }
   function compareVersions(a,b) {
     const x = versionParts(a), y = versionParts(b);
