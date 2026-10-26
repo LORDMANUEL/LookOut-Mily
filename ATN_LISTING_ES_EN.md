@@ -1,107 +1,98 @@
-# LookOut-Mily - ATN Listing Copy
+# LookOut-Mily 3.6.0 — Texto para Thunderbird Add-ons (ATN)
+
+**Estado:** texto para una posible publicación adicional en addons.thunderbird.net (ATN). LookOut-Mily 3.6.0 se distribuye públicamente por GitHub. Thunderbird no exige firma ATN para instalar el XPI: la catalogación y revisión de ATN son un proceso separado.
 
 ## Resumen corto (ES)
 
-Convierte correos con `winmail.dat` / TNEF en Thunderbird y extrae los adjuntos reales como archivos normales.
+Convierte archivos `winmail.dat` / Outlook TNEF en adjuntos normales en Thunderbird; conserva el correo original y facilita el diagnóstico.
 
 ## Short summary (EN)
 
-Converts `winmail.dat` / TNEF messages in Thunderbird and extracts the real attachments as normal files.
+Convert Outlook `winmail.dat` / TNEF attachments into usable files in Thunderbird, preserving the original message and providing diagnostics.
 
-## Descripción larga (ES)
+## Descripción larga (ES) — versión 3.6
 
-LookOut-Mily es una extensión para Thunderbird enfocada en correos enviados desde Outlook que llegan con `winmail.dat` o formato TNEF.
+**LookOut-Mily 3.6** es un complemento para Thunderbird que recupera adjuntos incluidos en el encapsulado TNEF (`winmail.dat`) utilizado por Microsoft Outlook.
 
-El complemento detecta el mensaje abierto, extrae sus archivos reales y permite trabajar con ellos como adjuntos normales. También puede reemplazar el correo original por una copia convertida, para dejar una versión más limpia y fácil de revisar.
+**Novedades de esta versión**
 
-Funciones principales:
+- Interfaz rediseñada, accesible y adaptable, con tema claro/oscuro.
+- Conversión del mensaje abierto; evita procesar toda la bandeja.
+- Extracción de adjuntos múltiples, nombres Unicode, objetos MAPI y contenido compatible RTF/HTML.
+- Corrección de atributos de longitud cero, archivos de datos enviados antes de su nombre y adjuntos vacíos.
+- Validación de integridad para evitar conversiones parciales de datos TNEF dañados.
+- Guardado manual o múltiple de los archivos recuperados.
+- Creación opcional de un correo MIME con los adjuntos como archivos convencionales, **sin eliminar el mensaje original**. Esta opción está desactivada inicialmente.
+- Registros exportables para diagnóstico.
+- Avisos de versiones nuevas desde el repositorio GitHub; permiten revisar la publicación, no instalar automáticamente una versión sin firma.
+- Compatibilidad declarada desde Thunderbird 128 mediante MailExtensions / Manifest V2; pruebas reales de instalación pendientes.
 
-- procesa solo el correo que el usuario abre
-- evita conversiones masivas sobre toda la cuenta
-- extrae adjuntos reales desde `winmail.dat`
-- puede reemplazar el mensaje original por una copia convertida
-- mantiene el flujo manual de guardar archivos si la conversión completa no aplica
-- incluye logs exportables para diagnóstico y soporte
+**Correo firmado o cifrado:** el complemento no modifica ni sustituye los mensajes protegidos S/MIME/OpenPGP. TNEF no representa cifrado criptográfico y un mensaje cifrado, aunque carezca de firma digital, necesita la clave privada del destinatario para poder leerse.
 
-Puntos de acceso:
+**Uso**
 
-1. Botón del complemento en la vista del mensaje.
-2. Popup del complemento al abrir un correo con `winmail.dat`.
-3. Página de opciones del complemento para activar o desactivar conversión automática, reemplazo y logs.
+1. Abrir un mensaje que contenga `winmail.dat`.
+2. Abrir el popup de LookOut-Mily para revisar los adjuntos extraídos.
+3. Guardar individualmente los archivos o guardarlos todos.
+4. Si se necesita una copia del correo con adjuntos MIME convencionales, habilitar esa opción en la configuración; el original permanecerá intacto.
+5. En Opciones se pueden configurar conversiones, descargas, notificaciones y logs.
 
-Cómo usarlo:
+**Permisos y privacidad**
 
-1. Abre un correo que contenga `winmail.dat`.
-2. Si la conversión automática está activa, LookOut-Mily procesará ese correo abierto.
-3. Si no se reemplaza el mensaje automáticamente, abre el popup del complemento.
-4. Desde el popup puedes guardar los archivos extraídos o ver los adjuntos originales.
-5. En Opciones puedes activar:
-   - conversión automática
-   - guardado automático
-   - reemplazo del mensaje por copia convertida
-   - logs de diagnóstico
+Los permisos de lectura/gestión de mensajes se utilizan para acceder al correo abierto y, de manera opcional, importar una copia convertida. La comprobación de versiones se realiza mediante la lectura de un manifiesto público HTTPS en GitHub; no transmite el cuerpo ni los adjuntos de correo a GitHub.
 
-Cómo probarlo:
+**Evidencia de validación del candidato**
 
-1. Instala el complemento.
-2. Usa un correo de prueba que contenga `winmail.dat`.
-3. Verifica que el complemento detecte el mensaje abierto.
-4. Verifica que los archivos extraídos puedan guardarse.
-5. Si está activa la opción de reemplazo, verifica que el complemento cree una copia convertida y envíe el original a la papelera.
+La suite automatizada 3.6 recupera la lista esperada de adjuntos en 12/12 archivos TNEF públicos de prueba y el linter oficial Thunderbird informa 0 errores y 0 advertencias. La instalación en Thunderbird fue confirmada por el mantenedor; faltan pruebas amplias de conversión con mensajes reales y la eventual revisión si se desea figurar en ATN.
 
-Capturas recomendadas para subir a ATN:
+## Long description (EN) — version 3.6
 
-1. Popup mostrando archivos extraídos de `winmail.dat`.
-2. Página de Opciones mostrando conversión automática, reemplazo y logs.
-3. Vista del sitio o documentación donde se vea claramente el flujo del complemento.
+**LookOut-Mily 3.6** is a Thunderbird MailExtension that extracts usable attachments from Microsoft Outlook's TNEF (`winmail.dat`) message container.
 
-## Long description (EN)
+**What's new**
 
-LookOut-Mily is a Thunderbird extension focused on Outlook messages that arrive as `winmail.dat` / TNEF.
+- Redesigned responsive options and attachment popup with light/dark themes.
+- Processes only the message currently opened, not an entire mailbox.
+- Supports multiple attachments, Unicode file names, supported MAPI objects, and compatible RTF/HTML message contents.
+- Fixes empty attributes, data-before-filename ordering, and zero-byte attachments.
+- Validates corrupted/truncated containers to avoid incomplete conversion.
+- Allows manual and bulk saving of extracted attachments.
+- Optionally imports a converted MIME copy **while preserving the original email**; creating a copy is disabled by default.
+- Exportable logs for troubleshooting.
+- GitHub version checks and notifications, with a link to review releases, not silent XPI installation.
+- Declares Thunderbird 128+ compatibility via MailExtensions / Manifest V2. End-to-end client testing is still pending.
 
-The add-on detects the message currently being opened, extracts the real files from the TNEF container, and lets the user work with them as normal attachments. It can also replace the original message with a converted copy, leaving a cleaner version that is easier to review.
+**Signed and encrypted email:** the extension does not rewrite or remove protected S/MIME or OpenPGP messages. TNEF encapsulation is not cryptographic encryption; an encrypted email without a digital signature still needs the legitimate recipient's private key.
 
-Main features:
+**How to use**
 
-- processes only the message currently opened by the user
-- avoids bulk conversion across the entire account
-- extracts the real attachments from `winmail.dat`
-- can replace the original message with a converted copy
-- keeps a manual save flow when full replacement is not applicable
-- includes exportable diagnostic logs for support
+1. Open an email containing `winmail.dat`.
+2. Open the LookOut-Mily popup and inspect the recovered attachments.
+3. Save files one by one or save all.
+4. Enable optional MIME-copy creation in Settings when needed. Your original email remains intact.
+5. Configure automatic processing, downloads, notifications and diagnostic logs in Settings.
 
-Entry points:
+**Permissions and privacy**
 
-1. Add-on button in the message display view.
-2. Add-on popup when opening a message with `winmail.dat`.
-3. Add-on options page to enable or disable automatic conversion, replacement, and logs.
+Mail access permissions enable extraction from the current message and optional import of a converted copy. Update checking retrieves public version metadata over HTTPS from GitHub; message bodies and attachments are not sent to GitHub by the update checker.
 
-How to use it:
+**Testing evidence**
 
-1. Open a message that contains `winmail.dat`.
-2. If automatic conversion is enabled, LookOut-Mily will process that opened message.
-3. If the message is not automatically replaced, open the add-on popup.
-4. From the popup you can save the extracted files or review the original attachments.
-5. In the Options page you can enable:
-   - automatic conversion
-   - automatic saving
-   - message replacement with a converted copy
-   - diagnostic logs
+The automated 3.6 tests match expected attachments in 12/12 publicly available TNEF samples and the Thunderbird extension linter reports zero findings. Installation in Thunderbird was confirmed by the project maintainer; broader real-message QA and optional ATN review remain separate tasks.
 
-How to test it:
+## Capturas de pantalla propuestas / Suggested screenshots
 
-1. Install the add-on.
-2. Use a test message containing `winmail.dat`.
-3. Verify that the add-on detects the opened message.
-4. Verify that the extracted files can be saved.
-5. If replacement is enabled, verify that the add-on creates a converted copy and moves the original to Trash.
+1. Popup modernizado con archivos de `winmail.dat` recuperados / Modern attachment popup.
+2. Opciones con conversión, copia opcional y protección del correo original / Settings and preservation.
+3. Tema claro/oscuro y versiones de Thunderbird / Themes and Thunderbird compatibility.
+4. Aviso de versión disponible desde GitHub / Available-update notification.
 
-Suggested screenshots for ATN:
+## Notas para revisión de ATN / Reviewer notes
 
-1. Popup showing files extracted from `winmail.dat`.
-2. Options page showing automatic conversion, replacement, and logs.
-3. A documentation or project view that clearly shows the add-on workflow.
+- Maintains extension ID `lookout-modern@addons.thunderbird.net` and supports manifest version 2 for Thunderbird 128+.
+- Version 3.6 is built reproducibly from the 3.5.10 base with versioned safety patches and readable source.
+- No external JavaScript is loaded at runtime; the network request used for update checking is limited to public version metadata.
+- No automatic deletion of original mail and no bypass of cryptographic encryption.
+- [Source + pull request](https://github.com/LORDMANUEL/LookOut-Mily/pull/3) · [Build and QA instructions](./v3.6/README.md) · [QA report](./v3.6/QA_REPORT_2026-10-26.md).
 
-## Nota para revisión / Review note
-
-LookOut-Mily is a distinct continuation focused on modern Thunderbird compatibility, one-message-at-a-time conversion, replacement workflow, and diagnostic logging.
+**Para figurar en ATN, seguir sus políticas y el proceso de revisión. La publicación GitHub es independiente.**
