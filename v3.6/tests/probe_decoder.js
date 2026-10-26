@@ -31,3 +31,9 @@ for(const term of ["function tnef_pack_parse_stream(", "function tnef_file_notif
  const i=content.indexOf(term);
  if(i>=0) console.log("FULL SOURCE "+term+": "+content.slice(i,i+5500).replace(/\\n/g," "));
 }
+
+
+for (const needle of ["async function getSettings(", "function getSettings(", "replaceOriginal: true", "messenger.messages.getFull(", "decodeContent: false"]) {
+ let ix=backend.indexOf(needle), hits=backend.split(needle).length-1;
+ console.log("COMPAT DIAGNOSTIC",needle,"count",hits,"context",ix>=0?backend.slice(Math.max(0,ix-160),ix+550).replace(/\n/g," "):"");
+}
