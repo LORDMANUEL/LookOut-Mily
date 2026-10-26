@@ -26,6 +26,15 @@ def patch_decoder(source: str) -> str:
         'console.error("[LookOut] Error decoding TNEF:", err);\n    return []; // Reject any partial results after an error.\n  }\n\n  return files;',
         "don't leak partial decoded files after parser errors"
     )
+    # A zero-length TNEF attribute is complete even when attr.buf == "".
+    # The legacy truthiness test abandoned the stream, dropping attachments
+    # whose DATA appeared before TITLE and 0-byte objects.
+    source = replacement(
+        source,
+        'return attr.len >= 0 && !(attr.buf && attr.buf.length === attr.len);',
+        'return attr.len >= 0 && (attr.buf == null || attr.buf.length !== attr.len);',
+        "accept complete zero-length attributes"
+    )
     return source
 
 def patch_backend(source: str) -> str:
