@@ -12,7 +12,7 @@
 
 | Control | Estado |
 | --- | --- |
-| Validación estática oficial de Thunderbird | Integrada y obligatoria en CI: cero errores/advertencias en la última versión candidata verificada |
+| Validación estática oficial de Thunderbird | Integrada y obligatoria en CI: cero errores inesperados y cero advertencias en CI. La única restricción señalada es update-url, exclusiva del catálogo ATN: el paquete se distribuye por GitHub y no solicita listarse en ATN. |
 | Pruebas TNEF reales de corpus público | 12 de 12 muestras recuperan los adjuntos esperados |
 | Pruebas TNEF sintéticas | Valida bytes, checksum, truncamientos y nombres |
 | S/MIME / OpenPGP | Protección contra reescritura de mensajes protegidos; descifrado solo con clave legítima |
