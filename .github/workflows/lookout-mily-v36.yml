@@ -20,6 +20,8 @@ jobs:
           node-version: '22'
       - name: Validate packaged XPI and legacy engine
         run: python3 v3.6/tests/validate_xpi.py
+      - name: Verify XPI matches versioned sources
+        run: python3 v3.6/scripts/build_xpi.py --verify
       - name: Validate JavaScript syntax
         run: |
           python3 - <<'PY'
