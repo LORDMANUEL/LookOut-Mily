@@ -4,7 +4,7 @@
 [![Website](https://img.shields.io/badge/Website-GitHub_Pages-236393?style=for-the-badge)](https://lordmanuel.github.io/LookOut-Mily/)
 [![Thunderbird](https://img.shields.io/badge/Thunderbird-128%2B-3c74c5?style=for-the-badge)](https://www.thunderbird.net/)
 
-**LookOut-Mily 3.6.0** ayuda a recuperar documentos, hojas de cálculo, imágenes y otros adjuntos enviados desde Microsoft Outlook en un contenedor **\`winmail.dat\` / TNEF**, para trabajar con ellos directamente en Mozilla Thunderbird.
+**LookOut-Mily 3.6.0** ayuda a recuperar documentos, hojas de cálculo, imágenes y otros adjuntos enviados desde Microsoft Outlook en un contenedor **`winmail.dat` / TNEF**, para trabajar con ellos directamente en Mozilla Thunderbird.
 
 ## Versión 3.6.0: disponible para pruebas
 
@@ -29,7 +29,7 @@ La 3.6 está **publicada como candidata de pruebas**, no como actualización est
 
 ## Cómo funciona
 
-1. Abre en Thunderbird un mensaje que contenga un adjunto \`winmail.dat\`.
+1. Abre en Thunderbird un mensaje que contenga un adjunto `winmail.dat`.
 2. Abre el panel de LookOut-Mily y revisa los archivos extraídos.
 3. Guarda los adjuntos individualmente o en conjunto.
 4. Opcionalmente, crea una copia MIME con adjuntos convencionales: **el mensaje original permanece intacto**.
@@ -57,7 +57,7 @@ Descarga el [XPI 3.6.0 RC2 de GitHub Releases](https://github.com/LORDMANUEL/Loo
 1. Haz una copia de seguridad del perfil y abre **Complementos y temas**.
 2. Abre el menú del engranaje y selecciona **Instalar complemento desde archivo**.
 3. Selecciona el XPI. Si Thunderbird exige firma, **no desactives la verificación en el perfil de trabajo**.
-4. Abre un correo de prueba con \`winmail.dat\`, comprueba la extracción y la descarga.
+4. Abre un correo de prueba con `winmail.dat`, comprueba la extracción y la descarga.
 5. Verifica que el mensaje original permanezca intacto, sin duplicaciones.
 
 ## Seguridad, privacidad y límites
@@ -78,4 +78,4 @@ Las pruebas automáticas no garantizan compatibilidad universal con todos los co
 
 ## Créditos y licencia
 
-Basado en LookOut v1.2.15 por **Aron Rubin**. Continuación, adaptación y mantenimiento: **Luis Manuel Fajardo Rivera**. Consulta la licencia del repositorio y el archivo \`NOTICE\` antes de redistribuirlo.
+Basado en LookOut v1.2.15 por **Aron Rubin**. Continuación, adaptación y mantenimiento: **Luis Manuel Fajardo Rivera**. Consulta la licencia del repositorio y el archivo `NOTICE` antes de redistribuirlo.
