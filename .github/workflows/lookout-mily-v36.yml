@@ -41,6 +41,8 @@ jobs:
         run: node v3.6/tests/probe_decoder.js
       - name: Decode synthetic Outlook TNEF fixtures
         run: node v3.6/tests/test_tnef_fixtures.js
+      - name: Test protected MIME and original preservation
+        run: node v3.6/tests/test_safe_replace.js
       - name: Test update availability and notifications
         run: node v3.6/tests/test_updates.js
       - name: Publish test-only XPI artifact
