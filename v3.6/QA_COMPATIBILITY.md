@@ -1,6 +1,6 @@
 # QA manual de LookOut-Mily 3.6
 
-| Thunderbird | Contrato de API probado | Instalación real |
+| Thunderbird | Contrato de API probado | Instalación real (la RC2 ya fue instalada por el mantenedor; faltan las pruebas ampliadas) |
 |---|---|---|
 | 128 ESR | Sí, con simulaciones | Pendiente |
 | 140 ESR | Sí, con simulaciones | Pendiente |
