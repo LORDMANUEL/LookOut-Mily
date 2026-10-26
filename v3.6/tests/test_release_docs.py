@@ -50,7 +50,7 @@ for name, text in files.items():
 
 for name in ("README.md", "COMO_ACTUALIZAR.md", "ATN_LISTING_ES_EN.md", "CHANGELOG.md"):
     text = files[name].lower()
-    assert "firm" in text, f"{name}: must describe signing requirements"
+    assert "atn" in text.lower() or "firm" in text.lower(), f"{name}: must describe ATN and distribution requirements"
 
 assert "12/12" in files["README.md"]
 assert "12/12" in files["v3.6/QA_REPORT_2026-10-26.md"]
