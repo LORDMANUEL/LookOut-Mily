@@ -15,7 +15,7 @@
 
 El estado **3.6 RC** representa el trabajo actual de desarrollo, no una actualización ya instalada en los equipos. El número de versión del complemento dentro del paquete de pruebas es **3.6.0**.
 
-- [XPI 3.6.0 de pruebas sin firma — artefacto de GitHub Actions](https://github.com/LORDMANUEL/LookOut-Mily/actions/runs/40393031865/artifacts/12684702883). Para un perfil aislado, no como instalador general; el artefacto de Actions es temporal.
+- [XPI 3.6.0 de pruebas sin firma — artefacto de GitHub Actions](https://github.com/LORDMANUEL/LookOut-Mily/releases/download/v3.6.0-rc.2/lookout-mily-3.6.0.xpi). Para un perfil aislado, no como instalador general; el artefacto de Actions es temporal.
 - [Complemento en Thunderbird Add-ons (ATN)](https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/) — verificar allí qué versión está efectivamente aprobada antes de instalar.
 - [Sitio del proyecto](https://lordmanuel.github.io/LookOut-Mily/) · [Código y PR](https://github.com/LORDMANUEL/LookOut-Mily/pull/3) · [Reporte QA 3.6](./v3.6/QA_REPORT_2026-10-26.md)
 
