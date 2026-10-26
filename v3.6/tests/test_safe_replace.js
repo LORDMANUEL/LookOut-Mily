@@ -9,6 +9,11 @@ const start=code.indexOf("async function replaceMessageWithConvertedCopy(");
 const end=code.indexOf("\nbrowser.tabs.onRemoved.addListener",start);
 assert.ok(start>=0 && end>start,"Conversion handler exists");
 const fragment=code.slice(start,end).trim();
+const helperStart=code.indexOf("async function milyGetFullCompat(");
+const helperEnd=code.indexOf("\\n}",helperStart)+2;
+assert.ok(helperStart>0 && helperEnd>helperStart,"TB128 compatibility helper exists");
+const compatibleHelper=code.slice(helperStart,helperEnd);
+
 function makeHarness(root,converted) {
  let imported=0,deleted=0,read=0;
  const messenger={
@@ -22,7 +27,7 @@ function makeHarness(root,converted) {
  };
  const logs=[];
  const ctx={
-  messenger,browser:{notifications:{create:()=>{}},runtime:{getURL:x=>x}},
+  messenger,browser:{notifications:{create:()=>{}},runtime:{getURL:x=>x,getBrowserInfo:async()=>({version:"158.0.1"})}},
   File,console,Number,
   logInfo:async(event)=>logs.push(event),logWarn:async(event)=>logs.push(event),
   describeTab:x=>x,describeMessage:x=>x,suppressNextDisplay:()=>{},
@@ -30,7 +35,7 @@ function makeHarness(root,converted) {
   markMessageConverted:async()=>{},
   performCompleteConversion:async()=>converted
  };
- const func=vm.runInNewContext("("+fragment+")",ctx);
+ const func=vm.runInNewContext(compatibleHelper+"\\n("+fragment+")",ctx);
  const header={id:11,folder:{path:"/Inbox"},read:true,tags:[]};
  return {run:()=>func({id:5,windowId:1},header,[{partName:"1.2",name:"winmail.dat"}],{showNotif:false}),
   counts:()=>({imported,deleted,read}),logs};
