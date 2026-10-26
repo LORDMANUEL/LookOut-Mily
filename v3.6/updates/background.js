@@ -62,7 +62,8 @@
         const compatible = versions.filter(x =>
           versionParts(x?.version) &&
           typeof x?.update_link === "string" &&
-          x.update_link.startsWith("https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/") &&
+          (x.update_link.startsWith("https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/") ||
+           x.update_link.startsWith("https://github.com/LORDMANUEL/LookOut-Mily/releases/download/")) &&
           (!tb || !x.browser_specific_settings?.gecko?.strict_min_version ||
             compareVersions(tb, x.browser_specific_settings.gecko.strict_min_version) >= 0)
         );
