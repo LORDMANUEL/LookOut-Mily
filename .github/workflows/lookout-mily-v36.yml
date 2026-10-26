@@ -65,8 +65,12 @@ jobs:
           git clone --depth=1 https://github.com/thunderbird/webext-linter.git /tmp/thunderbird-linter
           cd /tmp/thunderbird-linter
           npm ci --no-audit --no-fund
+          set +e
           node verify.js "$GITHUB_WORKSPACE/lookout-mily-3.6.0.xpi" --report-format json > "$GITHUB_WORKSPACE/v3.6-lint-report.json"
+          lint_rc=$?
+          set -e
           cat "$GITHUB_WORKSPACE/v3.6-lint-report.json"
+          exit "$lint_rc"
       - name: Retain Thunderbird lint evidence
         if: always()
         uses: actions/upload-artifact@v4
