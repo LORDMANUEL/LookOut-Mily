@@ -142,7 +142,7 @@ jobs:
 
   publish_stable:
     name: Publish LookOut-Mily 3.6.0 to GitHub Releases
-    if: \${{ github.event_name == 'push' && github.ref == 'refs/heads/release/3.6.0-public' && startsWith(github.event.head_commit.message, 'release(stable):') }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/release/3.6.0-public' && startsWith(github.event.head_commit.message, 'release(stable):') }}
     needs: validate
     runs-on: ubuntu-latest
     permissions:
@@ -158,7 +158,7 @@ jobs:
           cat SHA256SUMS.txt
       - name: Publish stable GitHub release (Thunderbird self-distribution)
         env:
-          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cat > RELEASE_NOTES.md <<'EOF'
           # LookOut-Mily 3.6.0
