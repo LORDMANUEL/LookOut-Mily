@@ -3,9 +3,9 @@
     "lookout-modern@addons.thunderbird.net": {
       "updates": [
         {
-          "version": "3.5.10",
-          "update_link": "https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.10.xpi",
-          "update_hash": "sha256:B44367D70376A5CC9B51DDDF677EBCAEC6C547B89D076175795A5C1EE6A89358",
+          "version": "3.6.0",
+          "update_link": "https://github.com/LORDMANUEL/LookOut-Mily/releases/download/v3.6.0/lookout-mily-3.6.0.xpi",
+          "update_hash": "sha256:9a98915aa502f0b1b9e0a73284b882c41d75981bbb0f0e3f5d4ae1959b7db860",
           "browser_specific_settings": {
             "gecko": {
               "strict_min_version": "128.0"
