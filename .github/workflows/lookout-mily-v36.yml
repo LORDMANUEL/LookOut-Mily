@@ -97,3 +97,43 @@ jobs:
           name: lookout-mily-3.6.0-unsigned-test
           path: lookout-mily-3.6.0.xpi
           retention-days: 14
+
+  publish_rc:
+    name: Publish public unsigned release candidate
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/lookout-mily-v3.6' && startsWith(github.event.head_commit.message, 'release(rc):') }}
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: lookout-mily-3.6.0-unsigned-test
+      - name: Validate unsigned RC artifact
+        run: |
+          unzip -t lookout-mily-3.6.0.xpi
+          sha256sum lookout-mily-3.6.0.xpi
+      - name: Publish prerelease only (not stable)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat > RELEASE_NOTES.md <<'EOF'
+          # LookOut-Mily 3.6.0 Release Candidate 1
+
+          ⚠️ **PRUEBAS — XPI SIN FIRMA ATN. NO INSTALAR EN PERFILES DE PRODUCCIÓN.**
+
+          Actualización del convertidor TNEF / winmail.dat para Thunderbird con nueva interfaz, aviso de versiones por GitHub, conversión segura que conserva el mensaje original y mejoras para TNEF con adjuntos múltiples, Unicode y atributos vacíos.
+
+          Verificación automática: 12/12 corpus TNEF reales, pruebas S/MIME, controles de preservación, compatibilidad de APIs simulada y linter oficial Thunderbird con 0 hallazgos.
+
+          Este XPI requiere revisión y firma ATN para su instalación normal y no habilita actualización automática en producción.
+
+          Fuente: https://github.com/LORDMANUEL/LookOut-Mily/pull/3
+          QA: https://github.com/LORDMANUEL/LookOut-Mily/blob/feature/lookout-mily-v3.6/v3.6/QA_REPORT_2026-10-26.md
+          EOF
+          gh release create v3.6.0-rc.1 lookout-mily-3.6.0.xpi \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --prerelease \
+            --title "LookOut-Mily 3.6.0 RC1 (pruebas sin firma)" \
+            --notes-file RELEASE_NOTES.md
