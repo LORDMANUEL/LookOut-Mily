@@ -76,7 +76,7 @@
           <div class="hero-metrics" aria-label="Resultados de pruebas automatizadas">
             <div><strong>12/12</strong><span>muestras TNEF reales</span></div>
             <div><strong>128+</strong><span>Thunderbird declarado</span></div>
-            <div><strong>0</strong><span>errores del linter</span></div>
+            <div><strong>0</strong><span>fallos inesperados del linter</span></div>
           </div>
         </div>
         <div class="hero-art" role="img" aria-label="Representación de un correo Outlook con winmail.dat que LookOut-Mily convierte en archivos PDF, Excel y JPG; el correo original permanece.">
@@ -164,7 +164,7 @@
           <span class="section-kicker">VERSIÓN Y COMPATIBILIDAD</span>
           <h2>LookOut-Mily <span class="version-large">3.6.0</span></h2>
           <p>La 3.6 trae el rediseño y las mejoras de conversión. Ya está disponible la <strong>versión pública 3.6.0</strong>, con mejoras verificadas por pruebas automatizadas. La instalación en Thunderbird fue confirmada; la migración y los casos reales seguirán evaluándose.</p>
-          <div class="qa-chips"><span>12/12 TNEF reales</span><span>0 hallazgos del linter</span><span>Compilación reproducible</span></div>
+          <div class="qa-chips"><span>12/12 TNEF reales</span><span>Linter revisado: excepción ATN documentada</span><span>Compilación reproducible</span></div>
           <a class="text-link" href="https://github.com/LORDMANUEL/LookOut-Mily/blob/feature/lookout-mily-v3.6/v3.6/QA_REPORT_2026-10-26.md" target="_blank" rel="noopener noreferrer">Consultar el informe de pruebas <svg class="icon"><use href="#i-external"/></svg></a>
         </div>
         <div class="version-panel">
@@ -173,7 +173,7 @@
           <div class="version-detail"><span>Formato de extensión</span><strong>MailExtensions · Manifest V2</strong></div>
           <div class="version-detail"><span>Distribución</span><strong>GitHub Releases · instalación directa</strong></div>
           <div class="version-detail"><span>Actualizaciones desde</span><strong>GitHub · manifiesto HTTPS</strong></div>
-          <div class="version-message"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><p>La instalación del complemento fue confirmada por el mantenedor. El código superó las pruebas TNEF y el análisis oficial de Thunderbird. Continuaremos ampliando las pruebas con correos Outlook reales y migraciones en distintos equipos.</p></div>
+          <div class="version-message"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><p>La instalación del complemento fue confirmada por el mantenedor. El código superó las pruebas TNEF y el análisis oficial de Thunderbird para distribución en GitHub, con una restricción específica de ATN sobre update_url externo documentada. Continuaremos ampliando las pruebas con correos Outlook reales y migraciones en distintos equipos.</p></div>
         </div>
       </div>
     </section>
@@ -207,7 +207,7 @@
           <details><summary>¿Qué es exactamente winmail.dat? <svg class="icon"><use href="#i-chevron"/></svg></summary><p>Es un archivo contenedor en formato TNEF que Outlook puede utilizar para enviar adjuntos y formato enriquecido. No implica por sí mismo que el mensaje esté cifrado.</p></details>
           <details><summary>¿LookOut-Mily puede leer correos cifrados sin firma? <svg class="icon"><use href="#i-chevron"/></svg></summary><p>Un mensaje S/MIME u OpenPGP cifrado necesita la clave legítima del destinatario aunque no tenga firma. El complemento evita modificar esos mensajes protegidos; no elude su cifrado.</p></details>
           <details><summary>¿Se borra mi correo original al convertirlo? <svg class="icon"><use href="#i-chevron"/></svg></summary><p>No con la versión 3.6: si decides generar una copia MIME, el correo original se mantiene. La creación de copias está desactivada inicialmente.</p></details>
-          <details><summary>¿LookOut-Mily 3.6.0 ya está publicada? <svg class="icon"><use href="#i-chevron"/></svg></summary><p>Sí. La 3.6.0 es la versión pública del proyecto en GitHub. El mantenedor confirmó su instalación y las pruebas automatizadas pasaron. La revisión en el catálogo ATN es opcional; todavía se están ampliando las pruebas con mensajes Outlook reales.</p></details>
+          <details><summary>¿LookOut-Mily 3.6.0 ya está publicada? <svg class="icon"><use href="#i-chevron"/></svg></summary><p>Sí. La 3.6.0 es la versión pública del proyecto en GitHub. El mantenedor confirmó su instalación y las pruebas automatizadas pasaron. El catálogo ATN es una distribución diferente que no admite el actualizador externo de esta edición. Continúan las pruebas con mensajes Outlook reales.</p></details>
           <details><summary>¿Funciona en versiones antiguas de Thunderbird? <svg class="icon"><use href="#i-chevron"/></svg></summary><p>Se declara compatible con Thunderbird 128 y versiones posteriores, con verificaciones simuladas de APIs en 128, 140, 153 y 158. Thunderbird 115 no está incluido en el soporte previsto para 3.6.</p></details>
           <details><summary>¿Cómo recibiré avisos cuando haya otra versión? <svg class="icon"><use href="#i-chevron"/></svg></summary><p>La 3.6 consulta versiones en GitHub y notifica cambios compatibles. El paquete público también incluye una URL nativa de actualización de Thunderbird. Las actualizaciones automáticas dependen de las preferencias del usuario y requieren una versión superior a la instalada.</p></details>
         </div>
