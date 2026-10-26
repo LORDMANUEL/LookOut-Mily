@@ -35,6 +35,8 @@ jobs:
                       dest.write_bytes(z.read(f))
           PY
           find /tmp/lookout-check -name '*.js' -print0 | xargs -0 -n1 node --check
+      - name: Inspect TNEF decoder API in packaged XPI
+        run: node v3.6/tests/probe_decoder.js
       - name: Test update availability and notifications
         run: node v3.6/tests/test_updates.js
       - name: Publish test-only XPI artifact
