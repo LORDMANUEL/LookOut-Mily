@@ -41,6 +41,16 @@ jobs:
         run: node v3.6/tests/probe_decoder.js
       - name: Decode synthetic Outlook TNEF fixtures
         run: node v3.6/tests/test_tnef_fixtures.js
+      - name: Download public TNEF sample corpus
+        run: |
+          mkdir -p v3.6/tests/fixtures
+          for name in one-file.tnef two-files.tnef data-before-name.tnef long-filename.tnef umlaut.tnef unicode-mapi-attr-name.tnef minimal_attachment.tnef; do
+            curl --fail --location --silent --show-error --retry 3 --max-time 30 \
+              "https://raw.githubusercontent.com/koodaamo/tnefparse/8b79230a6d81d37d2e623751dfbbdc1225844207/tests/examples/$name" \
+              --output "v3.6/tests/fixtures/$name"
+          done
+      - name: Decode real TNEF samples against known attachments
+        run: node v3.6/tests/test_real_tnef.js
       - name: Test protected MIME and original preservation
         run: node v3.6/tests/test_safe_replace.js
       - name: Test update availability and notifications
