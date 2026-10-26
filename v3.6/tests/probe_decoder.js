@@ -25,3 +25,9 @@ for(const term of ["function decodeTNEF(", "function tnef_pack_parse_stream(", "
   const i=str.indexOf(term);if(i>=0)console.log("INSPECT "+label+" "+term+" :: "+str.slice(i,i+2900).replace(/\n/g," "));
  }
 }
+
+
+for(const term of ["function tnef_pack_parse_stream(", "function tnef_file_notify(", "function tnef_file_munge_fname(", "function tnef_file_add_attr("]){
+ const i=content.indexOf(term);
+ if(i>=0) console.log("FULL SOURCE "+term+": "+content.slice(i,i+5500).replace(/\\n/g," "));
+}
