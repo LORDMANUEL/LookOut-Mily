@@ -20,6 +20,13 @@ jobs:
           node-version: '22'
       - name: Build XPI from baseline with safe decoder fixes
         run: python3 v3.6/scripts/build_xpi.py
+      - name: Verify byte-identical deterministic builds
+        run: |
+          first="$(sha256sum lookout-mily-3.6.0.xpi | cut -d' ' -f1)"
+          python3 v3.6/scripts/build_xpi.py
+          second="$(sha256sum lookout-mily-3.6.0.xpi | cut -d' ' -f1)"
+          test "$first" = "$second"
+          echo "PASS identical XPI builds: $second"
       - name: Validate packaged XPI and guarded converter
         run: python3 v3.6/tests/validate_xpi.py
       - name: Verify XPI matches versioned sources
