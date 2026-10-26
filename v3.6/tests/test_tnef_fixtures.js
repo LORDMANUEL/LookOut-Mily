@@ -10,23 +10,7 @@ const tnef = fs.readFileSync(path.join(dir,"tnef_decoder.js"),"utf8");
 const sandbox = {console,Buffer,TextDecoder,TextEncoder,btoa,atob,Uint8Array,ArrayBuffer};
 vm.runInNewContext(mapi+"\n"+tnef+"\n globalThis.__decodeTNEF=decodeTNEF;",sandbox);
 const decode = sandbox.__decodeTNEF;
-vm.runInNewContext(`
-  const _notify = tnef_file_notify;
-  tnef_file_notify = function(file,listener,isFinal) {
-    if(globalThis.__traceTnef) console.log("TRACE notify",JSON.stringify({
-      name:file && file.name,len:file && file.len,pos:file && file.position,
-      dataSize:file && file.data && file.data.length,isFinal
-    }));
-    return _notify(file,listener,isFinal);
-  };
-  const _add = tnef_file_add_attr;
-  tnef_file_add_attr = function(file,files,attr,pkg,listener) {
-    if(globalThis.__traceTnef) console.log("TRACE attr",attr.name.toString(16),"before",file.name,"after-data",file.data&&file.data.length);
-    const ret=_add(file,files,attr,pkg,listener);
-    if(globalThis.__traceTnef) console.log("TRACE post-attr",file.name,file.len);
-    return ret;
-  };
-`,sandbox);
+
 function attribute(level,name,type,value) {
  const data = Buffer.from(value);
  const header = Buffer.alloc(9);
@@ -56,17 +40,13 @@ const fixtures = [
 let ok = 0;
 for (const fixture of fixtures) {
  const encoded = specimen(fixture.attachments);
- sandbox.__traceTnef = fixture.name === 'zero-length';
  const decoded = decode(new Uint8Array(encoded));
- sandbox.__traceTnef = false;
  assert.ok(Array.isArray(decoded),"decoder must return an array");
  const expected = fixture.attachments;
  assert.equal(decoded.length,expected.length,fixture.name+": number of attachments");
  for (let i=0;i<expected.length;i++) {
-  if (fixture.name === "zero-length") {
-   assert.equal(decoded[i].size,0,"zero length file retained");
-   console.log("KNOWN-LIMITATION zero-length filename: "+decoded[i].name);
-  } else assert.equal(decoded[i].name,expected[i].name,fixture.name+": filename");
+  assert.equal(decoded[i].name,expected[i].name,fixture.name+": filename");
+  if (fixture.name === "zero-length") assert.equal(decoded[i].size,0,"zero length file retained");
   assert.deepEqual(Buffer.from(decoded[i].dataBase64,"base64"),expected[i].data,fixture.name+": bytes");
  }
  console.log("PASS "+fixture.name+": "+decoded.length+" attachment(s)");
