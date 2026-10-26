@@ -1,6 +1,6 @@
 # LookOut-Mily 3.6.0
 
-**Estado:** Release Candidate (RC) en PR #3. No publicado ni instalado en producción. main y updates.json no se modifican.
+**Estado:** RC2 pública de pruebas en [GitHub Releases](https://github.com/LORDMANUEL/LookOut-Mily/releases/tag/v3.6.0-rc.2), sin firma ATN. No publicada como estable ni instalada en producción. main y updates.json no se modifican.
 
 ## Funciones
 - Decodificación Outlook TNEF/winmail.dat para adjuntos MIME normales, cuerpo RTF/HTML, nombres Unicode y objetos MAPI admitidos.
