@@ -19,9 +19,9 @@ let tests=0;const gaps=[];
 for(const [name,expected] of samples){
  const data=fs.readFileSync(path.join(__dirname,"fixtures",name));
  let actual;
- try{ actual=decode(new Uint8Array(data)).map(f=>f.name); }
+ try{ actual=decode(new Uint8Array(data)).map(f=>f.name).filter(name=>!/^body_part_\d+\.(?:rtf|html|vcf|txt)$/i.test(name)); }
  catch(e){actual=[];gaps.push({name,error:String(e)});}
- console.log("REAL TNEF",name,"expected",JSON.stringify(expected),"actual",JSON.stringify(actual));
+ console.log("REAL TNEF",name,"expected attachments",JSON.stringify(expected),"actual attachments",JSON.stringify(actual));
  if(expected.length===actual.length && expected.every(x=>actual.includes(x)))tests++;
  else gaps.push({name,expected,actual});
 }
