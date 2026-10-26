@@ -1,113 +1,84 @@
 # LookOut-Mily
 
-[![Website](https://img.shields.io/badge/website-live-0b8f6a?style=for-the-badge)](https://lordmanuel.github.io/LookOut-Mily/)
-[![Release](https://img.shields.io/badge/release-3.5.10-157ad1?style=for-the-badge)](https://github.com/LORDMANUEL/LookOut-Mily/releases)
+[![Versión en desarrollo](https://img.shields.io/badge/desarrollo-3.6.0_RC-0b8f6a?style=for-the-badge)](https://github.com/LORDMANUEL/LookOut-Mily/pull/3)
+[![Paquete en main](https://img.shields.io/badge/paquete_en_main-3.5.10-157ad1?style=for-the-badge)](https://github.com/LORDMANUEL/LookOut-Mily/blob/main/updates.json)
+[![Sitio](https://img.shields.io/badge/sitio-GitHub_Pages-4659bd?style=for-the-badge)](https://lordmanuel.github.io/LookOut-Mily/)
 
-**LookOut-Mily** es una extension para Thunderbird que convierte correos con `winmail.dat` / TNEF en mensajes con adjuntos normales.
+**LookOut-Mily** es un complemento MailExtensions para **Thunderbird** que recupera adjuntos y datos de mensajes de Microsoft Outlook enviados como `winmail.dat` / **TNEF**, para poder usarlos como archivos convencionales. No recopila contenido del correo para consultar versiones.
 
-Descarga oficial en Thunderbird Add-ons:
-[https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/](https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/)
+## Versiones y estado de lanzamiento
 
-Respaldo XPI directo:
-[https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.10.xpi](https://raw.githubusercontent.com/LORDMANUEL/LookOut-Mily/main/lookout-mily-3.5.10.xpi)
+| Canal | Versión | Estado | Acción |
+| --- | --- | --- | --- |
+| Próxima entrega, rama `feature/lookout-mily-v3.6` | **3.6.0 RC** | Desarrollo y pruebas automáticas aprobados. **No firmado ni publicado como estable**. | [Revisar PR #3](https://github.com/LORDMANUEL/LookOut-Mily/pull/3) |
+| Paquete disponible en la rama `main` | **3.5.10** | Sigue siendo el paquete al que apunta `updates.json`. No se ha sustituido por la RC. | [Consultar el manifiesto de actualizaciones](./updates.json) |
 
-Sitio oficial del proyecto:
-[https://lordmanuel.github.io/LookOut-Mily/](https://lordmanuel.github.io/LookOut-Mily/)
+El estado **3.6 RC** representa el trabajo actual de desarrollo, no una actualización ya instalada en los equipos. El número de versión del complemento dentro del paquete de pruebas es **3.6.0**.
 
-Repositorio oficial:
-[https://github.com/LORDMANUEL/LookOut-Mily](https://github.com/LORDMANUEL/LookOut-Mily)
+- [XPI 3.6.0 de pruebas sin firma — artefacto de GitHub Actions](https://github.com/LORDMANUEL/LookOut-Mily/actions/runs/40393031865/artifacts/12684702883). Para un perfil aislado, no como instalador general; el artefacto de Actions es temporal.
+- [Complemento en Thunderbird Add-ons (ATN)](https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/) — verificar allí qué versión está efectivamente aprobada antes de instalar.
+- [Sitio del proyecto](https://lordmanuel.github.io/LookOut-Mily/) · [Código y PR](https://github.com/LORDMANUEL/LookOut-Mily/pull/3) · [Reporte QA 3.6](./v3.6/QA_REPORT_2026-10-26.md)
 
-## Version actual
+## Novedades de LookOut-Mily 3.6
 
-**3.5.10**
+- **Rediseño de interfaz:** popup de adjuntos y opciones modernizados, adaptables a diferentes pantallas, tema claro/oscuro, accesibilidad y estados visibles.
+- **Conversión TNEF optimizada:** procesa múltiples adjuntos, nombres Unicode, objetos MAPI, cuerpos RTF/HTML y adjuntos vacíos; corrige casos DATA antes de TITLE, atributos de longitud cero y atributos finales cortos.
+- **Validación de integridad:** identifica datos truncados, checksums inválidos y contenedores malformados; no presenta resultados parciales como conversiones completas.
+- **Protección de los correos:** al habilitar la creación de una copia MIME convertida se conserva el correo original. La opción viene desactivada por defecto para instalaciones nuevas.
+- **Mensajes firmados o cifrados:** protege el MIME original S/MIME/OpenPGP para evitar reescribirlo. Un correo realmente cifrado, aunque no esté firmado, **necesita su clave legítima de descifrado**; TNEF no equivale a cifrado.
+- **Actualizaciones:** comprobación de metadatos públicos en GitHub cada 12 horas y bajo demanda; detecta versiones superiores compatibles, evita avisos repetidos y permite abrir GitHub Releases. No instala un XPI automáticamente.
+- **Compatibilidad de APIs:** manejo de `messages.getFull` adaptado a Thunderbird 128 y a las APIs de 140 y posteriores.
+- **Build reproducible:** el mismo código genera el mismo SHA-256 del XPI de pruebas.
 
-Esta version mantiene el comportamiento estable del flujo de conversion y agrega ajustes para publicacion y revision en Mozilla / ATN:
+## ¿Cómo se usa?
 
-- convierte solo el mensaje que abres
-- evita reconvertir el mismo correo original
-- extrae y normaliza los adjuntos de `winmail.dat`
-- reutiliza la pestaña actual cuando crea la copia convertida, para evitar aperturas en cascada
-- agrega logs exportables para diagnostico y reportes reales de usuarios
-- elimina el flujo de compose no compatible con ATN
-- agrega localizacion en ingles y espanol
-- limpia archivos no usados del paquete XPI
-- ajusta compatibilidad minima a Thunderbird 128
+1. Abre un mensaje con `winmail.dat` en Thunderbird.
+2. LookOut-Mily identifica el contenedor TNEF y presenta los archivos extraíbles en su popup.
+3. Puedes guardarlos individualmente o en conjunto.
+4. Si activas expresamente **Crear copia convertida**, se crea un mensaje MIME con adjuntos convencionales, **sin eliminar el correo original**.
+5. En **Opciones** configuras conversión, guardado, registros y avisos de nuevas versiones.
 
-## Flujo de trabajo
+La conversión se limita al correo abierto; no recorre masivamente toda la bandeja.
 
-Al abrir un correo que contiene `winmail.dat`:
+## Validación de la 3.6 RC
 
-1. LookOut-Mily detecta el adjunto TNEF.
-2. Extrae los archivos reales contenidos en `winmail.dat`.
-3. Intenta crear una copia nueva del mensaje con adjuntos normales.
-4. Selecciona la copia convertida en la misma pestaña cuando es posible y envia el original a la papelera.
-5. Si la conversion total falla, mantiene disponibles las acciones manuales del complemento.
+| Verificación | Resultado |
+| --- | --- |
+| Corpus público de TNEF (Microsoft Outlook) | **12/12 muestras** con los nombres y cantidades esperados |
+| TNEF sintético y datos binarios | **11 categorías** de pruebas |
+| Preservación de originales y formatos MIME protegidos | **8 escenarios** |
+| Versiones Thunderbird 128 ESR, 140 ESR, 153 ESR y 158 | **APIs simuladas**, no instalación real |
+| Revisión oficial `thunderbird/webext-linter` | **0 errores, 0 advertencias** |
+| Compilación reproducible | Dos XPI generados con SHA-256 idéntico |
 
-## Cambios destacados en 3.5.10
-
-- elimina llamadas a APIs no compatibles con la version objetivo de Thunderbird
-- remueve el permiso `compose` y el flujo de reenvio no soportado
-- agrega `_locales/en` y `_locales/es` para interfaz bilingue
-- limpia iconos y carpetas no usadas del empaquetado final
-- valida correctamente con `thunderbird/webext-linter`
-
-## Instalacion manual
-
-1. En Thunderbird, abre `about:config`.
-2. Establece `xpinstall.signatures.required = false` si tu entorno permite instalaciones sin firma.
-3. Ve a **Herramientas -> Complementos -> Instalar complemento desde archivo**.
-4. Selecciona [`lookout-mily-3.5.10.xpi`](./lookout-mily-3.5.10.xpi).
-
-## Opciones disponibles
-
-| Opcion | Descripcion |
-|--------|-------------|
-| Convertir automaticamente | Procesa el `winmail.dat` al abrir el correo |
-| Reemplazar el mensaje por una copia convertida | Crea un nuevo correo con adjuntos normales y mueve el original a papelera |
-| Guardar en disco automaticamente | Descarga los archivos extraidos cuando aplica el flujo manual |
-| Mostrar notificaciones | Informa cuando la conversion o el guardado terminan |
-| Sub-carpeta de descarga | Guarda archivos en una carpeta especifica dentro de Descargas |
-| Habilitar logs de diagnostico | Registra eventos tecnicos y permite exportarlos a JSON desde Opciones |
+**Pendiente antes de anunciar 3.6 como estable:** instalación y prueba real dentro de Thunderbird (incluida migración 3.5.9 → 3.6.0, IMAP/POP y UI), firma y revisión mediante ATN, GitHub Release con XPI firmado y actualización del manifiesto público. [Seguimiento de liberación #5](https://github.com/LORDMANUEL/LookOut-Mily/issues/5).
 
 ## Compatibilidad
 
-- Thunderbird **128.0 o superior**
-- MailExtensions / Manifest V2
+- **Declarada para 3.6 RC:** Thunderbird 128.0 o superior, MailExtensions / Manifest V2.
+- **Probada automáticamente:** contratos de APIs simulados para 128, 140, 153 ESR y 158. Las pruebas automatizadas no equivalen a certificación de todas las versiones en cliente real.
+- Thunderbird 115 no está dentro del rango soportado de 3.6.0.
 
-## Actualizaciones
+## Desarrollo, pruebas y documentación
 
-Este repositorio publica el manifiesto de actualizaciones en [`updates.json`](./updates.json).
+El código fuente de 3.6 está en [`v3.6/`](./v3.6/). El paquete XPI se construye desde el XPI base 3.5.10 aplicando parches versionados y auditablemente limitados:
 
-## Sitio web del proyecto
+```bash
+python3 v3.6/scripts/build_xpi.py
+python3 v3.6/tests/validate_xpi.py
+python3 v3.6/scripts/build_xpi.py --verify
+```
 
-La landing page del proyecto vive en [`docs/`](./docs) y esta preparada para publicarse con GitHub Pages directamente desde la rama principal.
+- [Notas de cambios](./CHANGELOG.md)
+- [Arquitectura e instrucciones de la rama 3.6](./v3.6/README.md)
+- [Resultados completos de las pruebas](./v3.6/QA_REPORT_2026-10-26.md)
+- [Matriz manual de compatibilidad y migración](./v3.6/QA_COMPATIBILITY.md)
+- [Guía de publicación y firma](./COMO_ACTUALIZAR.md)
+- [Texto de ficha de ATN español/inglés](./ATN_LISTING_ES_EN.md)
+- [Workflow de CI](./.github/workflows/lookout-mily-v36.yml)
 
-URL esperada del sitio:
-`https://lordmanuel.github.io/LookOut-Mily/`
+**Aviso de seguridad:** no es necesario ni recomendable desactivar las comprobaciones de firmas de Thunderbird para utilizar el complemento en producción. La RC sin firmar solo es un artefacto de validación, pendiente de firma oficial.
 
-Configuracion recomendada en GitHub:
+## Créditos
 
-1. Ve a **Settings**
-2. Entra en **Pages**
-3. En **Source**, selecciona **Deploy from a branch**
-4. En **Branch**, selecciona **main**
-5. En la carpeta, selecciona **/docs**
-6. Guarda los cambios
-
-Este repositorio no necesita workflow de GitHub Actions para publicar la landing, porque el sitio ya es estatico y `index.html` vive en `docs/`.
-
-## Publicacion de versiones
-
-La guia de publicacion se encuentra en [`COMO_ACTUALIZAR.md`](./COMO_ACTUALIZAR.md).
-
-## Material para ATN
-
-Texto sugerido para la ficha publica en espanol e ingles:
-[`ATN_LISTING_ES_EN.md`](./ATN_LISTING_ES_EN.md)
-
-## Creditos
-
-Basado en LookOut v1.2.15 por Aron Rubin.
-
-Adaptacion, continuidad y personalizacion:
-**Luis Manuel Fajardo Rivera**
+Basado en LookOut v1.2.15, de Aron Rubin. Adaptación y mantenimiento de LookOut-Mily: **Luis Manuel Fajardo Rivera**. Consulte la licencia y el archivo `NOTICE` antes de su redistribución.
