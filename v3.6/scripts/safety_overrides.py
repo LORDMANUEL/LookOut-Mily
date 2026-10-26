@@ -47,13 +47,61 @@ def patch_decoder(source: str) -> str:
     return source
 
 def patch_backend(source: str) -> str:
+    # Thunderbird 128 supports decrypt, but decodeContent/decodeHeaders
+    # are not available until Thunderbird 140. Detect capabilities.
+    source = replacement(
+        source,
+        '"use strict";',
+        r'''"use strict";
+
+async function milyGetFullCompat(messageId, decrypt = true) {
+  let major = 128;
+  try {
+    if (typeof browser.runtime.getBrowserInfo === "function") {
+      major = parseInt((await browser.runtime.getBrowserInfo()).version, 10) || 128;
+    }
+  } catch (_) {}
+  const opts = { decrypt };
+  if (major >= 140) {
+    opts.decodeContent = false;
+    opts.decodeHeaders = false;
+  }
+  return messenger.messages.getFull(messageId, opts);
+}
+''',
+        "Thunderbird 128/140 MIME option compatibility"
+    )
+    source = replacement(
+        source,
+        'replaceOriginal: true,',
+        'replaceOriginal: false,',
+        "safe initial conversion defaults"
+    )
+    source = replacement(
+        source,
+        '''await messenger.messages.getFull(messageId, {
+    decodeContent: false,
+    decodeHeaders: false,
+    decrypt: true,
+  });''',
+        'await milyGetFullCompat(messageId, true);',
+        "read headers with version-compatible options"
+    )
+    source = replacement(
+        source,
+        '''await messenger.messages.getFull(messageHeader.id, {
+    decodeContent: false,
+    decodeHeaders: false,
+    decrypt: true,
+  });''',
+        'await milyGetFullCompat(messageHeader.id, true);',
+        "read original MIME with version-compatible options"
+    )
     start = 'async function replaceMessageWithConvertedCopy(tab, messageHeader, allAttachments, settings) {\n'
     guard = r'''async function replaceMessageWithConvertedCopy(tab, messageHeader, allAttachments, settings) {
   // The decrypted MIME tree cannot be safely repackaged as the original
   // signed/encrypted message. Fail closed; keep encrypted/signed mail intact.
-  const opaque = await messenger.messages.getFull(messageHeader.id, {
-    decodeContent: false, decodeHeaders: false, decrypt: false
-  });
+  const opaque = await milyGetFullCompat(messageHeader.id, false);
   const isProtected = (part, depth = 0) => {
     if (!part || depth > 24) return false;
     const mime = String(part.contentType || "").toLowerCase();
