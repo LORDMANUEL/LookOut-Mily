@@ -1,21 +1,21 @@
 # LookOut-Mily — convertidor TNEF para Thunderbird
 
-[![LookOut-Mily 3.6.0 RC2](https://img.shields.io/badge/LookOut--Mily-3.6.0_RC2-13ad9c?style=for-the-badge)](https://github.com/LORDMANUEL/LookOut-Mily/releases/tag/v3.6.0-rc.2)
+[![LookOut-Mily 3.6.0](https://img.shields.io/badge/LookOut--Mily-3.6.0-13ad9c?style=for-the-badge)](https://github.com/LORDMANUEL/LookOut-Mily/releases/tag/v3.6.0-rc.2)
 [![Website](https://img.shields.io/badge/Website-GitHub_Pages-236393?style=for-the-badge)](https://lordmanuel.github.io/LookOut-Mily/)
 [![Thunderbird](https://img.shields.io/badge/Thunderbird-128%2B-3c74c5?style=for-the-badge)](https://www.thunderbird.net/)
 
 **LookOut-Mily 3.6.0** ayuda a recuperar documentos, hojas de cálculo, imágenes y otros adjuntos enviados desde Microsoft Outlook en un contenedor **`winmail.dat` / TNEF**, para trabajar con ellos directamente en Mozilla Thunderbird.
 
-## Versión 3.6.0: disponible para pruebas
+## Versión pública 3.6.0
 
 | Canal | Versión | Estado |
 | --- | --- | --- |
-| [GitHub Releases: 3.6.0 RC2](https://github.com/LORDMANUEL/LookOut-Mily/releases/tag/v3.6.0-rc.2) | **3.6.0** | Prerelease pública **sin firma ATN**, orientada a pruebas |
-| [Manifiesto de actualizaciones](./updates.json) | **3.5.10** | Continúa apuntando al paquete anterior hasta validar y firmar la 3.6 |
+| [GitHub Releases: 3.6.0](https://github.com/LORDMANUEL/LookOut-Mily/releases/tag/v3.6.0) | **3.6.0** | **Versión pública autohospedada en GitHub**, compatible con Thunderbird 128+ |
+| [Manifiesto de actualizaciones](./updates.json) | **3.6.0** | Se actualiza después de publicar y verificar el XPI de GitHub |
 
-**[Descargar XPI 3.6.0 RC2](https://github.com/LORDMANUEL/LookOut-Mily/releases/download/v3.6.0-rc.2/lookout-mily-3.6.0.xpi)** · **[Ver nueva web con explicación y guía](https://lordmanuel.github.io/LookOut-Mily/)**
+**[Descargar XPI 3.6.0](https://github.com/LORDMANUEL/LookOut-Mily/releases/download/v3.6.0/lookout-mily-3.6.0.xpi)** · **[Ver nueva web con explicación y guía](https://lordmanuel.github.io/LookOut-Mily/)**
 
-La 3.6 está **publicada como candidata de pruebas**, no como actualización estable automática. Se ha confirmado la instalación en un Thunderbird de prueba, pero sigue pendiente certificar la conversión de mensajes auténticos y la migración 3.5.9 → 3.6.0 en clientes reales, además de la firma en Thunderbird Add-ons.
+La 3.6.0 es la **versión pública de GitHub**, aprobada para distribución por el mantenedor y probada mediante una batería automatizada. La instalación en Thunderbird ya fue confirmada. La validación seguirá ampliándose con correos reales y pruebas de migración; la revisión en el catálogo ATN es opcional e independiente. Thunderbird no exige firma ATN para instalar el XPI.
 
 ## Qué mejora la versión 3.6
 
@@ -45,18 +45,18 @@ No se procesan de forma masiva todos los correos de la cuenta.
 | Protección de mensajes originales | **8** escenarios automatizados |
 | Linter oficial de Thunderbird | **0 errores y 0 advertencias** |
 | Compatibilidad de APIs | **Simulada** para Thunderbird 128, 140, 153 y 158 |
-| Instalación/migración 3.5.9 → 3.6.0 en Thunderbird | **Pendiente de validación completa** |
-| Firma oficial ATN | **Pendiente** |
+| Instalación/migración 3.5.9 → 3.6.0 en Thunderbird | Validación de migración ampliada pendiente |
+| Firma oficial ATN | Opcional para figurar en el catálogo ATN |
 
 La compatibilidad declarada es **Thunderbird 128 o superior** mediante MailExtensions / Manifest V2. No se anuncia compatibilidad de la versión 3.6 con Thunderbird 115.
 
 ## Cómo probarla
 
-Descarga el [XPI 3.6.0 RC2 de GitHub Releases](https://github.com/LORDMANUEL/LookOut-Mily/releases/download/v3.6.0-rc.2/lookout-mily-3.6.0.xpi). En un perfil de Thunderbird de pruebas:
+Descarga el [XPI 3.6.0 público de GitHub Releases](https://github.com/LORDMANUEL/LookOut-Mily/releases/download/v3.6.0/lookout-mily-3.6.0.xpi). Para validarlo en un perfil de Thunderbird:
 
 1. Haz una copia de seguridad del perfil y abre **Complementos y temas**.
 2. Abre el menú del engranaje y selecciona **Instalar complemento desde archivo**.
-3. Selecciona el XPI. Si Thunderbird exige firma, **no desactives la verificación en el perfil de trabajo**.
+3. Selecciona el XPI. Thunderbird admite extensiones autohospedadas sin firma obligatoria de ATN; no se necesitan modificaciones de seguridad.
 4. Abre un correo de prueba con `winmail.dat`, comprueba la extracción y la descarga.
 5. Verifica que el mensaje original permanezca intacto, sin duplicaciones.
 
@@ -64,15 +64,15 @@ Descarga el [XPI 3.6.0 RC2 de GitHub Releases](https://github.com/LORDMANUEL/Loo
 
 **TNEF no equivale a cifrado criptográfico.** La extensión recupera archivos de un formato de encapsulado, no intenta eludir el cifrado S/MIME/OpenPGP. Los avisos de GitHub consultan metadatos públicos de versión, no el cuerpo de tus mensajes ni sus adjuntos.
 
-Las pruebas automáticas no garantizan compatibilidad universal con todos los correos de Outlook. Hasta completar las pruebas end-to-end y la firma, usa 3.6.0 RC2 únicamente en perfiles aislados.
+Las pruebas automáticas no garantizan compatibilidad universal con todos los correos de Outlook. Para despliegues amplios, continúa validando con mensajes Outlook reales y prueba una actualización controlada. La firma ATN no es un requisito de instalación de Thunderbird.
 
 ## Código, documentación y soporte
 
 - [Sitio oficial con instrucciones, funcionalidades y preguntas frecuentes](https://lordmanuel.github.io/LookOut-Mily/)
-- [Versión pública RC2](https://github.com/LORDMANUEL/LookOut-Mily/releases/tag/v3.6.0-rc.2)
+- [Versión pública 3.6.0](https://github.com/LORDMANUEL/LookOut-Mily/releases/tag/v3.6.0)
 - [Rama de desarrollo 3.6, código y pruebas](https://github.com/LORDMANUEL/LookOut-Mily/tree/feature/lookout-mily-v3.6)
 - [Informe técnico de QA](https://github.com/LORDMANUEL/LookOut-Mily/blob/feature/lookout-mily-v3.6/v3.6/QA_REPORT_2026-10-26.md)
-- [Pendientes de firma y publicación estable](https://github.com/LORDMANUEL/LookOut-Mily/issues/5)
+- [Seguimiento de pruebas y futuras mejoras](https://github.com/LORDMANUEL/LookOut-Mily/issues/5)
 - [Reporte de problemas](https://github.com/LORDMANUEL/LookOut-Mily/issues)
 - [Thunderbird Add-ons](https://addons.thunderbird.net/es/thunderbird/addon/lookout-mily/) — verificar la versión firmada disponible antes de instalar en producción.
 
