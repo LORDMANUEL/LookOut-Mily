@@ -52,9 +52,9 @@ with ZipFile(XPI) as z, ZipFile(BASE) as old:
                          ("options/options.html", "options/options.js")):
         html = z.read(page).decode("utf8")
         js = z.read(script).decode("utf8")
-        declared = re.findall(r'\\bid=["\\\']([^"\\\']+)["\\\']', html)
+        declared = re.findall(r'id="([^"]+)"', html)
         assert len(declared) == len(set(declared)), f"Duplicate HTML IDs: {page}"
-        expected_ids = re.findall(r'getElementById\\(["\\\']([^"\\\']+)["\\\']\\)', js)
+        expected_ids = re.findall(r'getElementById\("([^"]+)"\)', js)
         missing = set(expected_ids) - set(declared)
         assert not missing, f"{page} is missing UI controls used by {script}: {sorted(missing)}"
     assert "https://raw.githubusercontent.com/*" in manifest["permissions"]
