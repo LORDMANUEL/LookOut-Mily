@@ -59,6 +59,22 @@ jobs:
           done
       - name: Decode real TNEF samples against known attachments
         run: node v3.6/tests/test_real_tnef.js
+      - name: Thunderbird extension compatibility linter (advisory)
+        continue-on-error: true
+        run: |
+          git clone --depth=1 https://github.com/thunderbird/webext-linter.git /tmp/thunderbird-linter
+          cd /tmp/thunderbird-linter
+          npm ci --no-audit --no-fund
+          node verify.js "$GITHUB_WORKSPACE/lookout-mily-3.6.0.xpi" --report-format json > "$GITHUB_WORKSPACE/v3.6-lint-report.json"
+          cat "$GITHUB_WORKSPACE/v3.6-lint-report.json"
+      - name: Retain Thunderbird lint evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lookout-mily-3.6.0-lint-report
+          path: v3.6-lint-report.json
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Publish test-only XPI artifact
         if: always()
         uses: actions/upload-artifact@v4
