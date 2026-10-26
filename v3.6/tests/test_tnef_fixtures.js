@@ -41,7 +41,7 @@ for (const fixture of fixtures) {
  const encoded = specimen(fixture.attachments);
  const decoded = decode(new Uint8Array(encoded));
  assert.ok(Array.isArray(decoded),"decoder must return an array");
- const expected = fixture.attachments.filter(x=>x.data.length>0);
+ const expected = fixture.attachments;
  assert.equal(decoded.length,expected.length,fixture.name+": number of attachments");
  for (let i=0;i<expected.length;i++) {
   assert.equal(decoded[i].name,expected[i].name,fixture.name+": filename");
@@ -60,4 +60,16 @@ for (const [label,data] of [
  console.log("PASS "+label+": reject non-TNEF");
  ok++;
 }
+
+const valid=specimen([{name:"safe.txt",data:Buffer.from("CHECKSUM") }]);
+const corrupt=Buffer.from(valid);corrupt[corrupt.length-1]^=0x40;
+assert.equal(decode(new Uint8Array(corrupt)).length,0,"Wrong TNEF checksum must never produce a partial attachment");
+console.log("PASS checksum-corrupt: no attachments emitted");ok++;
+const truncated=valid.subarray(0,valid.length-1);
+assert.equal(decode(new Uint8Array(truncated)).length,0,"Truncated TNEF data must never produce an attachment");
+console.log("PASS truncation: no attachments emitted");ok++;
+const cmsEnvelope=Buffer.from("MIME-Version: 1.0\r\nContent-Type: application/pkcs7-mime; smime-type=enveloped-data\r\n\r\nfake-encrypted-mail");
+assert.equal(decode(new Uint8Array(cmsEnvelope)).length,0,"S/MIME is not TNEF");
+console.log("PASS smime-envelope-is-not-TNEF");ok++;
 console.log("PASS "+ok+" fixture categories");
+
