@@ -13,7 +13,12 @@ const samples=[
  ["long-filename.tnef",["allproductsmar2000.dat"]],
  ["umlaut.tnef",["TBZ PARIV GmbH.jpg","image003.jpg","UmlautAnhang-äüö.txt"]],
  ["unicode-mapi-attr-name.tnef",["spaconsole2.cfg","image001.png","image002.png","image003.png"]],
- ["minimal_attachment.tnef",["unknown.dat"]]
+ ["minimal_attachment.tnef",["unknown.dat"]],
+ ["MAPI_ATTACH_DATA_OBJ.tnef",["VIA_Nytt_1402.doc","VIA_Nytt_1402.pdf","VIA_Nytt_14021.htm"]],
+ ["MAPI_OBJECT.tnef",["Untitled_Attachment"]],
+ ["missing-filenames.tnef",["generpts.src","TechlibDEC99.doc","TechlibDEC99-JAN00.doc","TechlibNOV99.doc"]],
+ ["multi-value-attribute.tnef",["208225__5_seconds__Voice_Mail.mp3"]],
+ ["unicode-mapi-attr.tnef",["example.dat"]]
 ];
 let tests=0;const gaps=[];
 for(const [name,expected] of samples){
