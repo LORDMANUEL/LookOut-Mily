@@ -44,6 +44,46 @@ def patch_decoder(source: str) -> str:
         'while (pkg.cur_attr) {',
         "finish current attribute even when stream has a short final attribute"
     )
+    # Validate the entire TNEF frame before callbacks emit attachments.
+    # Prevent partial extraction after a silently truncated final attribute.
+    source = replacement(
+        source,
+        'function decodeTNEF(uint8Array) {',
+        r'''function milyValidateTnefEnvelope(bytes) {
+  if (!bytes || typeof bytes.length !== "number" ||
+      bytes.length < 6 || bytes.length > 256 * 1024 * 1024)
+    return false;
+  if (bytes[0] !== 0x78 || bytes[1] !== 0x9f ||
+      bytes[2] !== 0x3e || bytes[3] !== 0x22)
+    return false;
+  let offset = 6, count = 0;
+  while (offset < bytes.length) {
+    if (bytes.length - offset < 11 || ++count > 100000) return false;
+    const n = (bytes[offset + 5] | (bytes[offset + 6] << 8) |
+      (bytes[offset + 7] << 16) | (bytes[offset + 8] << 24)) >>> 0;
+    if (n > bytes.length - offset - 11) return false;
+    offset += n + 11;
+  }
+  return offset === bytes.length;
+}
+function decodeTNEF(uint8Array) {
+  if (!milyValidateTnefEnvelope(uint8Array)) return [];''',
+        "reject partial, oversized and malformed TNEF streams"
+    )
+    # Incremental concatenation grows quadratically for large winmail.dat
+    # content. Keep chunks and join only once per attached file.
+    source = replacement(source, 'let currentData  = "";',
+                         'let currentChunks = [];', "initialize binary chunk list")
+    source = replacement(source, '      currentData = "";',
+                         '      currentChunks = [];', "reset chunks on start")
+    source = replacement(source, 'if (data) currentData += data;',
+                         'if (data) currentChunks.push(data);', "accumulate bytes without quadratic strings")
+    source = replacement(source,
+                         '      if (currentFile) {\n        try {',
+                         '      if (currentFile) {\n        const currentData = currentChunks.join("");\n        try {',
+                         "join chunks once at finalization")
+    source = replacement(source, '        currentData  = "";',
+                         '        currentChunks = [];', "release chunks after finalization")
     return source
 
 def patch_backend(source: str) -> str:
