@@ -118,7 +118,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cat > RELEASE_NOTES.md <<'EOF'
-          # LookOut-Mily 3.6.0 Release Candidate 1
+          # LookOut-Mily 3.6.0 Release Candidate 2
 
           ⚠️ **PRUEBAS — XPI SIN FIRMA ATN. NO INSTALAR EN PERFILES DE PRODUCCIÓN.**
 
@@ -131,9 +131,9 @@ jobs:
           Fuente: https://github.com/LORDMANUEL/LookOut-Mily/pull/3
           QA: https://github.com/LORDMANUEL/LookOut-Mily/blob/feature/lookout-mily-v3.6/v3.6/QA_REPORT_2026-10-26.md
           EOF
-          gh release create v3.6.0-rc.1 lookout-mily-3.6.0.xpi \
+          gh release create v3.6.0-rc.2 lookout-mily-3.6.0.xpi \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
             --prerelease \
-            --title "LookOut-Mily 3.6.0 RC1 (pruebas sin firma)" \
+            --title "LookOut-Mily 3.6.0 RC2 (pruebas sin firma)" \
             --notes-file RELEASE_NOTES.md
