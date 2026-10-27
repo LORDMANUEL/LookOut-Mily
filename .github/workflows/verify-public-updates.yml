@@ -1,0 +1,30 @@
+name: Verify LookOut-Mily GitHub update chain
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'updates.json'
+      - 'v3.6/tests/test_published_update.py'
+      - '.github/workflows/verify-public-updates.yml'
+  pull_request:
+    paths:
+      - 'updates.json'
+      - 'v3.6/tests/test_published_update.py'
+      - '.github/workflows/verify-public-updates.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '41 12 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-public-updates:
+    name: Public JSON, XPI digest, manifest and future version contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify public update server and release artifact
+        run: python3 v3.6/tests/test_published_update.py
